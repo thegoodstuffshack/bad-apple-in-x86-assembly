@@ -4,8 +4,8 @@ jmp start
 ;	Prints Frames to the screen
 
 ;; DATA
-foreground db 35	;219
-background db 32
+foreground db 35	; 219
+background db 32	; ascii space
 
 ;; TEXT
 start:
@@ -15,8 +15,8 @@ start:
 	push 0x7e00	; word [bp+6] ; first addr
 	push 225; word [bp+4] ; no.
 	call frame
-	push 0x7e00	; word [bp+6] ; first addr
-	push 225; word [bp+4] ; no.
+	push 0x8000	; word [bp+6] ; first addr
+	push 230; word [bp+4] ; no.
 	call frame
 cli
 hlt
@@ -33,6 +33,16 @@ read_data_to_memory:
 	xor bx, bx
 	mov es, bx
 	mov bx, 0x7e00
+	int 0x13
+	
+	mov ah, 0x02
+	mov al, 1
+	mov ch, 0
+	mov cl, 3
+	mov dh, 0
+	xor bx, bx
+	mov es, bx
+	mov bx, 0x8000
 	int 0x13
 	
 	; mov al, ah
