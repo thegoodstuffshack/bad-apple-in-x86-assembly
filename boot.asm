@@ -13,10 +13,10 @@ start:
 	call read_data_to_memory
 	
 	push 0x7e00	; word [bp+6] ; first addr
-	push 225; word [bp+4] ; no.
+	push 70; word [bp+4] ; no.
 	call frame
 	push 0x8000	; word [bp+6] ; first addr
-	push 230; word [bp+4] ; no.
+	push 70; word [bp+4] ; no.
 	call frame
 cli
 hlt
@@ -79,7 +79,7 @@ frame:
 
 	.end:
 	pop bp
-ret 2
+ret
 
 shift_print:
 	push bp
