@@ -30,8 +30,8 @@ read_data_to_memory:
 	mov ch, 0
 	mov cl, 2
 	mov dh, 0
-	xor bx, bx
-	mov es, bx
+	; xor bx, bx
+	; mov es, bx
 	mov bx, 0x7e00
 	int 0x13
 	
