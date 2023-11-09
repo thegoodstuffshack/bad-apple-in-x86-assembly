@@ -6,9 +6,12 @@ jmp start
 ;; DATA
 foreground db 35	; 219
 background db 32	; ascii space
+BOOT_DRIVE db 0     ; init variable
 
 ;; TEXT
 start:
+    mov [BOOT_DRIVE], dl
+
 	;load data.bin
 	call read_data_to_memory
 
@@ -30,18 +33,20 @@ read_data_to_memory:
 	mov ch, 0
 	mov cl, 2
 	mov dh, 0
-	xor bx, bx
-	mov es, bx
+    mov dl, [BOOT_DRIVE]
+	;xor bx, bx
+	;mov es, bx
 	mov bx, 0x7e00
 	int 0x13
 
 	mov ah, 0x02
-	mov al, 2
+	mov al, 1
 	mov ch, 0
 	mov cl, 3
 	mov dh, 0
-	xor bx, bx
-	mov es, bx
+    mov dl, [BOOT_DRIVE]
+	;xor bx, bx
+	;mov es, bx
 	mov bx, 0x8000
 	int 0x13
 
@@ -101,7 +106,7 @@ shift_print:
 	; mov ax, 0x0e00
 	; int 0x10
 	pop bp
-ret	2
+ret 2
 
 print:
 	push bp
