@@ -15,12 +15,12 @@ start:
 	;load data.bin
 	call read_data_to_memory
 	
-	push 0x7e00	; word [bp+6] ; first addr
-	push 135; word [bp+4] ; no.
-	call frame
-	push 0x8000	; word [bp+6] ; first addr
+	push 0x60b00	; word [bp+6] ; first addr
 	push 125; word [bp+4] ; no.
-	;call frame
+	call frame
+	push 0xb000	; word [bp+6] ; first addr
+	push 125; word [bp+4] ; no.
+
 cli
 hlt
 
@@ -131,9 +131,12 @@ times 510 -($-$$) db 0
 dw 0xAA55
 
 ;; 
+%include "frames.asm"
 
-%include "data0.asm"
-times 2 * 512 -($-$$) db 0
+;%include "a.asm"
 
-%include "data1.asm"
-times 3 * 512 -($-$$) db 0
+; %include "data0.asm"
+; times 2 * 512 -($-$$) db 0
+
+; %include "data1.asm"
+; times 4 * 512 -($-$$) db 0
