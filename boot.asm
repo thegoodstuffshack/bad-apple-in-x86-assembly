@@ -6,21 +6,21 @@ jmp start
 ;; DATA
 foreground db 35	; 219
 background db 32	; ascii space
-BOOT_DRIVE db 0     ; init variable
+;BOOT_DRIVE db 0     ; init variable
 
 ;; TEXT
 start:
-    mov [BOOT_DRIVE], dl
+    ;mov [BOOT_DRIVE], dl
 
 	;load data.bin
 	call read_data_to_memory
-
+	
 	push 0x7e00	; word [bp+6] ; first addr
-	push 70; word [bp+4] ; no.
+	push 135; word [bp+4] ; no.
 	call frame
 	push 0x8000	; word [bp+6] ; first addr
-	push 70; word [bp+4] ; no.
-	call frame
+	push 125; word [bp+4] ; no.
+	;call frame
 cli
 hlt
 
@@ -33,7 +33,7 @@ read_data_to_memory:
 	mov ch, 0
 	mov cl, 2
 	mov dh, 0
-    mov dl, [BOOT_DRIVE]
+    ;mov dl, [BOOT_DRIVE]
 	;xor bx, bx
 	;mov es, bx
 	mov bx, 0x7e00
@@ -44,7 +44,7 @@ read_data_to_memory:
 	mov ch, 0
 	mov cl, 3
 	mov dh, 0
-    mov dl, [BOOT_DRIVE]
+    ;mov dl, [BOOT_DRIVE]
 	;xor bx, bx
 	;mov es, bx
 	mov bx, 0x8000
@@ -129,3 +129,11 @@ ret
 
 times 510 -($-$$) db 0
 dw 0xAA55
+
+;; 
+
+%include "data0.asm"
+times 2 * 512 -($-$$) db 0
+
+%include "data1.asm"
+times 3 * 512 -($-$$) db 0
