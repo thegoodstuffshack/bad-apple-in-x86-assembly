@@ -6,56 +6,129 @@ jmp start
 ;; DATA
 foreground db 35	; 219
 background db 32	; ascii space
-;BOOT_DRIVE db 0     ; init variable
+BOOT_DRIVE db 0     ; init variable
 
 ;; TEXT
 start:
-    ;mov [BOOT_DRIVE], dl
-
-	;load data.bin
-	call read_data_to_memory
+    mov [BOOT_DRIVE], dl
 	
-	push 0x60b00	; word [bp+6] ; first addr
-	push 125; word [bp+4] ; no.
-	call frame
-	push 0xb000	; word [bp+6] ; first addr
-	push 125; word [bp+4] ; no.
-
+	call load_memory
+	
+	call video
+	; push 0x7e00	; word [bp+6] ; frame address
+	; ;push 120	; word [bp+4] ; no.
+	; call frame	; print 1.darta
+	
+	; call delay
+	
+	; push 0x7f00
+	; ;push 120; word [bp+4] ; no.
+	; call frame	; print 1.darta
+	
+	; call delay
+	
+	; push 0x8000	; word [bp+6] ; frame address
+	; ;push 120	; word [bp+4] ; no.
+	; call frame	; print 1.darta
+	
+	; call delay
+	
+	; push 0x8100
+	; ;push 120; word [bp+4] ; no.
+	; call frame	; print 1.darta
+	
 cli
 hlt
 
-read_data_to_memory:
+delay:
+	mov ah, 0x86
+	mov cx, 0x0002
+	mov dx, 0x0000
+	int 0x15
+ret
+
+print_test:
+	mov ah, 0x0e
+	mov al, 58
+	int 0x10
+ret
+
+load_memory:
 	push bp
 	mov bp, sp
-
-	mov ah, 0x02
-	mov al, 1
-	mov ch, 0
-	mov cl, 2
-	mov dh, 0
-    ;mov dl, [BOOT_DRIVE]
-	;xor bx, bx
-	;mov es, bx
-	mov bx, 0x7e00
-	int 0x13
-
-	mov ah, 0x02
-	mov al, 1
-	mov ch, 0
-	mov cl, 3
-	mov dh, 0
-    ;mov dl, [BOOT_DRIVE]
-	;xor bx, bx
-	;mov es, bx
-	mov bx, 0x8000
-	int 0x13
-
-	; mov al, ah
-	; mov ah, 0x0e
-	; int 0x10
-
+	
+	mov cx, 0
+	.loop:
+	cmp cx, 20		; how much data to load					;;;;
+	je .end
+	push cx		; preserve count
+	
+	mov ax, 0x0200			; 0b0000 0010 0000 0000
+	mul cx
+	add ax, 0x7e00
+	push ax ; [bp+6] ;push 0x7e00 + bx * 0x0200
+	mov bx, 0x0002
+	add bx, cx
+	push bx ; [bp+4] ;push 0x0002 + bx
+	
+	call read_this
+	
+	pop cx		; restore count
+	inc cx		; increment count
+	jmp .loop
+	
+	.end:
+	mov ah, 0x0e
+	mov al, 50
+	int 0x10
 	pop bp
 ret
+
+video:
+	push bp
+	mov bp, sp
+	
+	mov cx, 0
+	.loop:
+	cmp cx, 120
+	je .end
+	
+	push cx
+	mov ax, 0x0100
+	mul cx
+	mov bx, 0x7e00
+	add bx, ax
+	push bx
+	call frame
+	call delay
+	
+	pop cx
+	inc cx
+	mov ah, 0x0e
+	mov al, 52
+	int 0x10
+	jmp .loop
+	
+	.end:
+	pop bp
+ret	
+
+read_this:
+	push bp
+	mov bp, sp
+	
+	mov bx, word [bp+6]	;;
+	mov cx, word [bp+4]	;;
+	
+	mov ah, 0x02
+	mov al, 1
+	xor dx, dx
+	mov es, dx
+	mov dl, [BOOT_DRIVE]
+	int 0x13
+
+	pop bp
+ret 4
 
 frame:
 	push bp
@@ -63,8 +136,9 @@ frame:
 
 	xor cx, cx
 	mov si, cx
-	mov cx, word [bp+4]
-	mov bx, word [bp+6]
+	mov cx, 120			 ; replace if want different amount
+	;mov cx, word [bp+4] ; than 120 then need to implement push
+	mov bx, word [bp+4]	 ; change pointer if above is changed (1) [bp+6]
 
 	.loop:
 	cmp cx, 0
@@ -73,18 +147,18 @@ frame:
 	push cx
 	push si
 
-	push word [bx+si]	; 0x7e00
+	push word [bx+si]
 	call shift_print
 
 	pop si
 	pop cx
-	mov bx, word [bp+6]
+	mov bx, word [bp+4]	 ; change pointer if above is changed (1) [bp+6]
 	add si, 2
 	jmp .loop
 
 	.end:
 	pop bp
-ret 2
+ret 2		; change to 4 if above is changed (1)
 
 shift_print:
 	push bp
@@ -130,10 +204,17 @@ ret
 times 510 -($-$$) db 0
 dw 0xAA55
 
-;; 
-%include "frames.asm"
+;; test
+; %include "1.data"
+; times 3 * 256 -($-$$) db 0
+; %include "2.data"
+; times 4 * 256 -($-$$) db 0
+; %include "3.data"
+; times 5 * 256 -($-$$) db 0
+; %include "4.data"
+; times 6 * 256 -($-$$) db 0
 
-;%include "a.asm"
+%include "frames.asm"
 
 ; %include "data0.asm"
 ; times 2 * 512 -($-$$) db 0
