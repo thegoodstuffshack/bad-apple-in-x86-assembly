@@ -12,38 +12,31 @@ BOOT_DRIVE db 0     ; init variable
 start:
     mov [BOOT_DRIVE], dl
 	
+	; mov ah, 0x0e
+	; mov al, 0
+	; .loop:
+	; int 0x10
+	; inc al
+	; pusha
+	; call delay
+	; popa
+	; jmp .loop
+	
 	call load_memory
 	
 	call video
-	; push 0x7e00	; word [bp+6] ; frame address
-	; ;push 120	; word [bp+4] ; no.
-	; call frame	; print 1.darta
-	
-	; call delay
-	
-	; push 0x7f00
-	; ;push 120; word [bp+4] ; no.
-	; call frame	; print 1.darta
-	
-	; call delay
-	
-	; push 0x8000	; word [bp+6] ; frame address
-	; ;push 120	; word [bp+4] ; no.
-	; call frame	; print 1.darta
-	
-	; call delay
-	
-	; push 0x8100
-	; ;push 120; word [bp+4] ; no.
-	; call frame	; print 1.darta
 	
 cli
 hlt
 
 delay:
+	mov ah, 0x02
+	mov bh, 0
+	xor dx, dx
+	int 0x10
 	mov ah, 0x86
-	mov cx, 0x0002
-	mov dx, 0x0000
+	mov cx, 0x0000
+	mov dx, 0x3000
 	int 0x15
 ret
 
@@ -59,7 +52,7 @@ load_memory:
 	
 	mov cx, 0
 	.loop:
-	cmp cx, 20		; how much data to load					;;;;
+	cmp cx, 62		; how much data to load					;;;;
 	je .end
 	push cx		; preserve count
 	
@@ -78,9 +71,9 @@ load_memory:
 	jmp .loop
 	
 	.end:
-	mov ah, 0x0e
-	mov al, 50
-	int 0x10
+	; mov ah, 0x0e
+	; mov al, 50
+	; int 0x10
 	pop bp
 ret
 
@@ -90,7 +83,7 @@ video:
 	
 	mov cx, 0
 	.loop:
-	cmp cx, 120
+	cmp cx, 124
 	je .end
 	
 	push cx
@@ -104,9 +97,9 @@ video:
 	
 	pop cx
 	inc cx
-	mov ah, 0x0e
-	mov al, 52
-	int 0x10
+	; mov ah, 0x0e
+	; mov al, 52
+	; int 0x10
 	jmp .loop
 	
 	.end:
