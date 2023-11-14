@@ -7,19 +7,20 @@ jmp start
 foreground		db 35	; 219
 background 		db 32	; ascii space
 BOOT_DRIVE		db 0     ; init variable
-max_sectors		dw 61	; gives 61+2 as 63 is max
-max_cylinders 	db 5	; not used yet
+max_sectors		dw 0	; gives 61+2 as 63 is max
+max_cylinders 	dw 0	; not used yet
 
-memory_sector_count 	db 0
+memory_sector_count 	db 1
 memory_cylinder_count 	db 0
 
 ;; CODE
 start:
     mov [BOOT_DRIVE], dl
+
+	call check_CHS
+	;call load_memory
 	
-	call load_memory
-	
-	call video
+	;call video
 	
 cli
 hlt
@@ -31,7 +32,7 @@ delay:
 	int 0x10			; move cursor to 0,0
 	mov ah, 0x86
 	mov cx, 0x0000
-	mov dx, 0x3000
+	mov dx, 0x4000
 	int 0x15			; delay between frames
 ret
 
@@ -43,6 +44,34 @@ ret
 
 ;extended_load_memory
 
+check_CHS:
+	push bp
+	mov bp, sp
+	mov cx, 0
+	clc
+	
+	.loop:
+	jc .carry
+	
+	push cx
+	push byte 0			;[bp+7]
+	push word 0x7c00	;[bp+6]
+	
+	mov bx, 0x0001
+	add bx, cx
+	push bx				;[bp+4]
+	call read_this
+	
+	pop cx
+	inc cx
+	jmp .loop
+	
+	.carry:
+	mov word [max_sectors], cx
+	mov al, cl
+	mov ah, 0x0e
+	int 0x10
+	jmp $
 
 load_memory:
 	push bp
@@ -51,9 +80,10 @@ load_memory:
 	mov cx, 0
 	.loop:
 	cmp cx, [max_sectors]		; how much data to load					;;;;
-	je .inc_cylinder
+	je .end
 	push cx		; preserve count
 	
+	push byte 1		;[bp+7]
 	mov ax, 0x0200			; 0b0000 0010 0000 0000
 	mul cx
 	add ax, 0x7e00
@@ -66,6 +96,7 @@ load_memory:
 	
 	pop cx		; restore count
 	inc cx		; increment count
+	inc byte [memory_sector_count]
 	jmp .loop
 	
 	.inc_cylinder:
@@ -91,7 +122,7 @@ video:
 	
 	mov cx, 0
 	.loop:
-	cmp cx, 124										;;;;
+	cmp cx, 30									;; frames ;;
 	je .end
 	
 	push cx
@@ -127,16 +158,26 @@ read_this:
 	mov es, dx
 	mov dl, [BOOT_DRIVE]
 	int 0x13
-	jc disk_error
-
+	jc test_if_want_to_end
+	
+	read_this_continue:
 	pop bp
-ret 4
+ret 5
+
+test_if_want_to_end:
+	;mov bl, byte [bp+7]
+	;cmp bl, 0
+	;jne disk_error
+	stc ; sets carry flag
+	jmp read_this_continue
 
 disk_error:
 	mov al, ah
+	add al, 40
 	mov ah, 0x0e
 	int 0x10
-	mov al, 1
+	
+	mov al, [memory_sector_count]
 	int 0x10
 	jmp $
 
@@ -224,7 +265,7 @@ dw 0xAA55
 ; %include "4.data"
 ; times 6 * 256 -($-$$) db 0
 
-;%include "frames.asm"
+%include "frames.asm"
 
 ; %include "data0.asm"
 ; times 2 * 512 -($-$$) db 0
