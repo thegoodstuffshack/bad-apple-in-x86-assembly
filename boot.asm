@@ -4,23 +4,18 @@ jmp start
 ;	Prints Frames to the screen
 
 ;; DATA
-foreground db 35	; 219
-background db 32	; ascii space
-BOOT_DRIVE db 0     ; init variable
+foreground		db 35	; 219
+background 		db 32	; ascii space
+BOOT_DRIVE		db 0     ; init variable
+max_sectors		dw 61	; gives 61+2 as 63 is max
+max_cylinders 	db 5	; not used yet
 
-;; TEXT
+memory_sector_count 	db 0
+memory_cylinder_count 	db 0
+
+;; CODE
 start:
     mov [BOOT_DRIVE], dl
-	
-	; mov ah, 0x0e
-	; mov al, 0
-	; .loop:
-	; int 0x10
-	; inc al
-	; pusha
-	; call delay
-	; popa
-	; jmp .loop
 	
 	call load_memory
 	
@@ -33,11 +28,11 @@ delay:
 	mov ah, 0x02
 	mov bh, 0
 	xor dx, dx
-	int 0x10
+	int 0x10			; move cursor to 0,0
 	mov ah, 0x86
 	mov cx, 0x0000
 	mov dx, 0x3000
-	int 0x15
+	int 0x15			; delay between frames
 ret
 
 print_test:
@@ -46,14 +41,17 @@ print_test:
 	int 0x10
 ret
 
+;extended_load_memory
+
+
 load_memory:
 	push bp
 	mov bp, sp
 	
 	mov cx, 0
 	.loop:
-	cmp cx, 62		; how much data to load					;;;;
-	je .end
+	cmp cx, [max_sectors]		; how much data to load					;;;;
+	je .inc_cylinder
 	push cx		; preserve count
 	
 	mov ax, 0x0200			; 0b0000 0010 0000 0000
@@ -62,12 +60,22 @@ load_memory:
 	push ax ; [bp+6] ;push 0x7e00 + bx * 0x0200
 	mov bx, 0x0002
 	add bx, cx
-	push bx ; [bp+4] ;push 0x0002 + bx
+	push bx ; [bp+4] ;push 0x0002 + bx		; 2+61
 	
 	call read_this
 	
 	pop cx		; restore count
 	inc cx		; increment count
+	jmp .loop
+	
+	.inc_cylinder:
+	mov ah, 0x0e
+	mov al, ch
+	int 0x10
+	cmp ch, 0x10
+	je .end
+	add ch, 0x10
+	mov cl, 0
 	jmp .loop
 	
 	.end:
@@ -83,7 +91,7 @@ video:
 	
 	mov cx, 0
 	.loop:
-	cmp cx, 124
+	cmp cx, 124										;;;;
 	je .end
 	
 	push cx
@@ -119,9 +127,18 @@ read_this:
 	mov es, dx
 	mov dl, [BOOT_DRIVE]
 	int 0x13
+	jc disk_error
 
 	pop bp
 ret 4
+
+disk_error:
+	mov al, ah
+	mov ah, 0x0e
+	int 0x10
+	mov al, 1
+	int 0x10
+	jmp $
 
 frame:
 	push bp
@@ -207,7 +224,7 @@ dw 0xAA55
 ; %include "4.data"
 ; times 6 * 256 -($-$$) db 0
 
-%include "frames.asm"
+;%include "frames.asm"
 
 ; %include "data0.asm"
 ; times 2 * 512 -($-$$) db 0
