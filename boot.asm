@@ -7,21 +7,22 @@ jmp start
 foreground		db 35	; 219
 background 		db 32	; ascii space
 BOOT_DRIVE		db 0     ; init variable
+
 max_sectors		dw 0	; gives 61+2 as 63 is max
 max_cylinders 	dw 0	; not used yet
+max_heads		dw 0
 
-memory_sector_count 	db 1
-memory_cylinder_count 	db 0
+sector_count 	db 0
+head_count		db 0
+cylinder_count 	db 0
 
 ;; CODE
 start:
     mov [BOOT_DRIVE], dl
 
-	call check_CHS
-	;call load_memory
-	
-	;call video
-	
+	;call check_disk_parameters
+	call load_memory
+	call video
 cli
 hlt
 
@@ -31,8 +32,8 @@ delay:
 	xor dx, dx
 	int 0x10			; move cursor to 0,0
 	mov ah, 0x86
-	mov cx, 0x0000
-	mov dx, 0x4000
+	mov cx, 0x0000		; CX:DX interval in microseconds
+	mov dx, 0x4000		;
 	int 0x15			; delay between frames
 ret
 
@@ -44,46 +45,17 @@ ret
 
 ;extended_load_memory
 
-check_CHS:
-	push bp
-	mov bp, sp
-	mov cx, 0
-	clc
-	
-	.loop:
-	jc .carry
-	
-	push cx
-	push byte 0			;[bp+7]
-	push word 0x7c00	;[bp+6]
-	
-	mov bx, 0x0001
-	add bx, cx
-	push bx				;[bp+4]
-	call read_this
-	
-	pop cx
-	inc cx
-	jmp .loop
-	
-	.carry:
-	mov word [max_sectors], cx
-	mov al, cl
-	mov ah, 0x0e
-	int 0x10
-	jmp $
-
 load_memory:
 	push bp
 	mov bp, sp
 	
 	mov cx, 0
 	.loop:
-	cmp cx, [max_sectors]		; how much data to load					;;;;
+	cmp cx, 62;[max_sectors]		; how much data to load				;;;;
 	je .end
 	push cx		; preserve count
 	
-	push byte 1		;[bp+7]
+	;push byte 1		;[bp+7]
 	mov ax, 0x0200			; 0b0000 0010 0000 0000
 	mul cx
 	add ax, 0x7e00
@@ -96,7 +68,7 @@ load_memory:
 	
 	pop cx		; restore count
 	inc cx		; increment count
-	inc byte [memory_sector_count]
+	inc byte [sector_count]
 	jmp .loop
 	
 	.inc_cylinder:
@@ -122,7 +94,7 @@ video:
 	
 	mov cx, 0
 	.loop:
-	cmp cx, 30									;; frames ;;
+	cmp cx, 124									;; frames ;;
 	je .end
 	
 	push cx
@@ -145,112 +117,8 @@ video:
 	pop bp
 ret	
 
-read_this:
-	push bp
-	mov bp, sp
-	
-	mov bx, word [bp+6]	;;
-	mov cx, word [bp+4]	;;
-	
-	mov ah, 0x02
-	mov al, 1
-	xor dx, dx
-	mov es, dx
-	mov dl, [BOOT_DRIVE]
-	int 0x13
-	jc test_if_want_to_end
-	
-	read_this_continue:
-	pop bp
-ret 5
-
-test_if_want_to_end:
-	;mov bl, byte [bp+7]
-	;cmp bl, 0
-	;jne disk_error
-	stc ; sets carry flag
-	jmp read_this_continue
-
-disk_error:
-	mov al, ah
-	add al, 40
-	mov ah, 0x0e
-	int 0x10
-	
-	mov al, [memory_sector_count]
-	int 0x10
-	jmp $
-
-frame:
-	push bp
-	mov bp, sp
-
-	xor cx, cx
-	mov si, cx
-	mov cx, 120			 ; replace if want different amount
-	;mov cx, word [bp+4] ; than 120 then need to implement push
-	mov bx, word [bp+4]	 ; change pointer if above is changed (1) [bp+6]
-
-	.loop:
-	cmp cx, 0
-	je .end
-	dec cx
-	push cx
-	push si
-
-	push word [bx+si]
-	call shift_print
-
-	pop si
-	pop cx
-	mov bx, word [bp+4]	 ; change pointer if above is changed (1) [bp+6]
-	add si, 2
-	jmp .loop
-
-	.end:
-	pop bp
-ret 2		; change to 4 if above is changed (1)
-
-shift_print:
-	push bp
-	mov bp, sp
-	mov cl, 0
-	.loop:
-	cmp cl, 16
-	je .shift_print_end
-
-	mov bx, word [bp+4]
-	shl bx, cl
-	push bx
-	call print
-	pop bx
-	inc cl
-	jmp .loop
-
-	.shift_print_end:
-	; mov ax, 0x0e00
-	; int 0x10
-	pop bp
-ret 2
-
-print:
-	push bp
-	mov bp, sp
-
-	mov ah, 0x0e
-	mov bx, word [bp+4]
-	cmp bh, 0x80	; 1000 0000 ; 128
-	jb .zero
-	.one:
-		mov al, byte [foreground]
-		int 0x10
-		jmp .end_print
-	.zero:
-		mov al, byte [background]
-		int 0x10
-	.end_print:
-	pop bp
-ret
+%include "print.asm"
+%include "disk_functions.asm"
 
 times 510 -($-$$) db 0
 dw 0xAA55
