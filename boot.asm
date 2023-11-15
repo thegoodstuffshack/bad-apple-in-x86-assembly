@@ -3,26 +3,54 @@
 jmp start
 ;	Prints Frames to the screen
 
-;; DATA
+;; VARIABLES
 foreground		db 35	; 219
 background 		db 32	; ascii space
 BOOT_DRIVE		db 0     ; init variable
 
-max_sectors		dw 0	; gives 61+2 as 63 is max
-max_cylinders 	dw 0	; not used yet
-max_heads		dw 0
+FRAME_NUMBER	dw 130	; 130 is max for 0x7c00 to 0xFF00
+ES_READ_EXTRA	db 0
 
-sector_count 	db 0
-head_count		db 0
-cylinder_count 	db 0
+max_sectors		db 0	; 0-based from earlier dec
+max_heads		db 0
+max_cylinders 	db 0	; not really necessary
+
+sector_count 	db 1	; live sector count, 1-based
+head_count		db 0	; live head count
+cylinder_count 	db 0	; live cylinder count
 
 ;; CODE
 start:
-    mov [BOOT_DRIVE], dl
+    
+	xor ax, ax
+	mov ss, ax
+	mov ds, ax
+	mov es, ax
+	mov ax, 0x7c00
+	;mov sp, ax
+	
+	mov bx, 0x1000
+	mov es, bx
+	xor bx, bx
+	mov bx, word [es:bx]
+	
+	
+	mov byte [BOOT_DRIVE], dl
+	mov al, dl
+	mov ah, 0x0e
+	int 0x10
+	
+	call check_disk_parameters
+	;call print_disk_parameters
+	call load_memory_test
 
-	;call check_disk_parameters
-	call load_memory
+
+	push 0x0000
 	call video
+	
+	push 0x1000
+	call video
+	
 cli
 hlt
 
@@ -37,55 +65,57 @@ delay:
 	int 0x15			; delay between frames
 ret
 
-print_test:
-	mov ah, 0x0e
-	mov al, 58
-	int 0x10
-ret
-
-;extended_load_memory
-
-load_memory:
-	push bp
-	mov bp, sp
-	
-	mov cx, 0
-	.loop:
-	cmp cx, 62;[max_sectors]		; how much data to load				;;;;
-	je .end
-	push cx		; preserve count
-	
-	;push byte 1		;[bp+7]
-	mov ax, 0x0200			; 0b0000 0010 0000 0000
-	mul cx
-	add ax, 0x7e00
-	push ax ; [bp+6] ;push 0x7e00 + bx * 0x0200
-	mov bx, 0x0002
-	add bx, cx
-	push bx ; [bp+4] ;push 0x0002 + bx		; 2+61
-	
-	call read_this
-	
-	pop cx		; restore count
-	inc cx		; increment count
-	inc byte [sector_count]
-	jmp .loop
-	
-	.inc_cylinder:
-	mov ah, 0x0e
-	mov al, ch
-	int 0x10
-	cmp ch, 0x10
-	je .end
-	add ch, 0x10
-	mov cl, 0
-	jmp .loop
-	
-	.end:
+; print_test:
 	; mov ah, 0x0e
-	; mov al, 50
+	; mov al, 58
 	; int 0x10
-	pop bp
+; ret
+
+load_memory_test:
+	mov ah, 0x00
+	mov dl, [BOOT_DRIVE]
+	int 0x13
+	jc disk_error1
+	
+	mov ah, 0x02
+	mov al, [max_sectors]
+	mov ch, [cylinder_count]
+	mov cl, 2
+	mov dh, [head_count]
+	mov dl, [BOOT_DRIVE]
+	xor bx, bx		; need to change
+	mov es, bx
+	mov bx, 0x7e00	; ntc
+	int 0x13		; 0000:7c00
+	jc disk_error1
+	
+	;inc byte [cylinder_count]
+	inc byte [head_count]
+	mov ah, 0x00
+	mov dl, [BOOT_DRIVE]
+	int 0x13
+	jc disk_error1
+	
+	mov ah, 0x86
+	mov cx, 0x0008		; CX:DX interval in microseconds
+	mov dx, 0x4000		;
+	int 0x15			; delay between frames
+	
+	mov ah, 0x02
+	mov al, [max_sectors]
+	;add al, [max_sectors]
+	mov ch, [cylinder_count]
+	mov cl, 1
+	mov dh, [head_count]
+	mov dl, [BOOT_DRIVE]
+	xor bx, bx		; need to change
+	mov es, bx
+	mov bx, 0x7c00;0xFa00	; ntc
+	add bx, 0x7c00
+	add bx, 0x0200
+	int 0x13		; 0000:7c00
+	jc disk_error2
+
 ret
 
 video:
@@ -94,13 +124,17 @@ video:
 	
 	mov cx, 0
 	.loop:
-	cmp cx, 124									;; frames ;;
+	cmp cx, [FRAME_NUMBER]			;; frames ;;
 	je .end
-	
 	push cx
+	
+	mov bx, [bp+4]
+	mov es, bx
+	push bx
+	
 	mov ax, 0x0100
 	mul cx
-	mov bx, 0x7e00
+	mov bx, 0x7e00	;0x7e00
 	add bx, ax
 	push bx
 	call frame
@@ -115,7 +149,7 @@ video:
 	
 	.end:
 	pop bp
-ret	
+ret	2
 
 %include "print.asm"
 %include "disk_functions.asm"
