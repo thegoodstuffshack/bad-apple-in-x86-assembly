@@ -7,7 +7,7 @@ check_disk_parameters:
 	mov ah, 0x08
 	mov dl, [BOOT_DRIVE]
 	int 0x13
-	jc disk_error5
+	;jc disk_error5
 	
 	mov al, ch	; preserve low 8 bits of 
 				; cylinder max for later
@@ -63,58 +63,58 @@ read_this:
 	mov dh, dl
 	mov dl, [BOOT_DRIVE]
 	int 0x13
-	jc disk_error4
+	;jc disk_error4
 	
 	read_this_continue:
 	pop bp
 ret 4
 
-disk_error1:
-	mov al, ah
-	;add al, 40
-	mov ah, 0x0e
-	int 0x10
+; disk_error1:
+	; mov al, ah
+	; ;add al, 40
+	; mov ah, 0x0e
+	; int 0x10
 	
-	mov al, 49
-	int 0x10
+	; mov al, 49
+	; int 0x10
 	
-	;mov al, [sector_count]
-	;int 0x10disk_error:
-cli
-hlt
+	; ;mov al, [sector_count]
+	; ;int 0x10disk_error:
+; cli
+; hlt
 
-disk_error2:
-	mov al, ah
-	;add al, 50
-	mov ah, 0x0e
-	int 0x10
-	
-	mov al, 50
-	int 0x10
-	
-	; mov al, [sector_count]
+; disk_error2:
+	; mov al, ah
+	; ;add al, 50
+	; mov ah, 0x0e
 	; int 0x10
-disk_error4:
-	mov al, ah
-	;add al, 50
-	mov ah, 0x0e
-	int 0x10
 	
-	mov al, 52
-	int 0x10
-	
-	; mov al, [sector_count]
+	; mov al, 50
 	; int 0x10
-disk_error5:
-	mov al, ah
-	;add al, 50
-	mov ah, 0x0e
-	int 0x10
 	
-	mov al, 53
-	int 0x10
-	
-	; mov al, [sector_count]
+	; ; mov al, [sector_count]
+	; ; int 0x10
+; disk_error4:
+	; mov al, ah
+	; ;add al, 50
+	; mov ah, 0x0e
 	; int 0x10
-cli
-hlt
+	
+	; mov al, 52
+	; int 0x10
+	
+	; ; mov al, [sector_count]
+	; ; int 0x10
+; disk_error5:
+	; mov al, ah
+	; ;add al, 50
+	; mov ah, 0x0e
+	; int 0x10
+	
+	; mov al, 53
+	; int 0x10
+	
+	; ; mov al, [sector_count]
+	; ; int 0x10
+; cli
+; hlt

@@ -8,8 +8,8 @@ foreground		db 35	; 219
 background 		db 32	; ascii space
 BOOT_DRIVE		db 0     ; init variable
 
-FRAME_NUMBER	dw 130	; 130 is max for 0x7c00 to 0xFF00
-ES_READ_EXTRA	db 0
+FRAME_NUMBER	dw 124	; 130 is max for 0x7c00 to 0xFF00
+;ES_READ_EXTRA	db 0
 
 max_sectors		db 0	; 0-based from earlier dec
 max_heads		db 0
@@ -26,14 +26,8 @@ start:
 	mov ss, ax
 	mov ds, ax
 	mov es, ax
-	mov ax, 0x7c00
+	;mov ax, 0x7c00
 	;mov sp, ax
-	
-	mov bx, 0x1000
-	mov es, bx
-	xor bx, bx
-	mov bx, word [es:bx]
-	
 	
 	mov byte [BOOT_DRIVE], dl
 	mov al, dl
@@ -48,7 +42,13 @@ start:
 	push 0x0000
 	call video
 	
-	push 0x1000
+	push 0x07c0
+	call video
+	
+	push 0x0F80
+	call video
+	
+	push 0x1740
 	call video
 	
 cli
@@ -75,7 +75,7 @@ load_memory_test:
 	mov ah, 0x00
 	mov dl, [BOOT_DRIVE]
 	int 0x13
-	jc disk_error1
+	;jc disk_error1
 	
 	mov ah, 0x02
 	mov al, [max_sectors]
@@ -87,19 +87,20 @@ load_memory_test:
 	mov es, bx
 	mov bx, 0x7e00	; ntc
 	int 0x13		; 0000:7c00
-	jc disk_error1
+	;jc disk_error1
 	
 	;inc byte [cylinder_count]
 	inc byte [head_count]
 	mov ah, 0x00
 	mov dl, [BOOT_DRIVE]
 	int 0x13
-	jc disk_error1
+	;jc disk_error1
 	
-	mov ah, 0x86
-	mov cx, 0x0008		; CX:DX interval in microseconds
-	mov dx, 0x4000		;
-	int 0x15			; delay between frames
+	call delay
+	; mov ah, 0x86
+	; mov cx, 0x0008		; CX:DX interval in microseconds
+	; mov dx, 0x4000		;
+	; int 0x15			; delay between frames
 	
 	mov ah, 0x02
 	mov al, [max_sectors]
@@ -114,7 +115,64 @@ load_memory_test:
 	add bx, 0x7c00
 	add bx, 0x0200
 	int 0x13		; 0000:7c00
-	jc disk_error2
+	;jc disk_error2
+
+	;inc byte [cylinder_count]
+	inc byte [head_count]
+	mov ah, 0x00
+	mov dl, [BOOT_DRIVE]
+	int 0x13
+	;jc disk_error1
+	
+	; mov ah, 0x86
+	; mov cx, 0x0008		; CX:DX interval in microseconds
+	; mov dx, 0x4000		;
+	; int 0x15			; delay between frames
+	
+	mov ah, 0x02
+	mov al, [max_sectors]
+	;add al, [max_sectors]
+	mov ch, [cylinder_count]
+	mov cl, 1
+	mov dh, [head_count]
+	mov dl, [BOOT_DRIVE]
+	mov bx, 0x07c0		; need to change
+	mov es, bx
+	mov bx, 0x7c00;0xFa00	; ntc
+	add bx, 0x7c00
+	add bx, 0x0200
+	;add bx, 0x7c00
+	int 0x13		; 0000:7c00
+	;jc disk_error2
+	
+	;inc byte [cylinder_count]
+	inc byte [head_count]
+	mov ah, 0x00
+	mov dl, [BOOT_DRIVE]
+	int 0x13
+	;jc disk_error1
+	
+	; mov ah, 0x86
+	; mov cx, 0x0008		; CX:DX interval in microseconds
+	; mov dx, 0x4000		;
+	; int 0x15			; delay between frames
+	
+	mov ah, 0x02
+	mov al, [max_sectors]
+	;add al, [max_sectors]
+	mov ch, [cylinder_count]
+	mov cl, 1
+	mov dh, [head_count]
+	mov dl, [BOOT_DRIVE]
+	mov bx, 0x07c0
+	add bx, 0x07c0; need to change
+	mov es, bx
+	mov bx, 0x7c00;0xFa00	; ntc
+	add bx, 0x7c00
+	add bx, 0x0200
+	;add bx, 0x7c00
+	int 0x13		; 0000:7c00
+	;jc disk_error2
 
 ret
 
