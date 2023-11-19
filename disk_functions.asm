@@ -7,10 +7,9 @@ check_disk_parameters:
 	mov ah, 0x08
 	mov dl, [BOOT_DRIVE]
 	int 0x13
-	;jc disk_error5
+	;jc disk_error
 	
-	mov al, ch	; preserve low 8 bits of 
-				; cylinder max for later
+	mov al, ch	; preserve low 8 bits of cylinder max for later
 	
 	; bits 0-5 of cl is max sector no.
 	; starts at 1
@@ -46,75 +45,17 @@ ret
 	; int 0x10	; ? means 16 heads
 ; ret
 
-read_this:
-	push bp
-	mov bp, sp
+disk_error:
+	mov cl, al
+	mov al, ah
+	;add al, 40
+	mov ah, 0x0e
+	int 0x10
 	
-	mov bx, word [bp+4]	;; address
-	;mov cx, word [bp+4];; sector no. 1-63
-	mov cl, [sector_count]
-	mov ch, [cylinder_count]
+	mov al, cl
+	int 0x10
 	
-	mov ah, 0x02
 	mov al, 1
-	xor dx, dx
-	mov es, dx
-	mov dx, [head_count]
-	mov dh, dl
-	mov dl, [BOOT_DRIVE]
-	int 0x13
-	;jc disk_error4
-	
-	read_this_continue:
-	pop bp
-ret 4
-
-; disk_error1:
-	; mov al, ah
-	; ;add al, 40
-	; mov ah, 0x0e
-	; int 0x10
-	
-	; mov al, 49
-	; int 0x10
-	
-	; ;mov al, [sector_count]
-	; ;int 0x10disk_error:
-; cli
-; hlt
-
-; disk_error2:
-	; mov al, ah
-	; ;add al, 50
-	; mov ah, 0x0e
-	; int 0x10
-	
-	; mov al, 50
-	; int 0x10
-	
-	; ; mov al, [sector_count]
-	; ; int 0x10
-; disk_error4:
-	; mov al, ah
-	; ;add al, 50
-	; mov ah, 0x0e
-	; int 0x10
-	
-	; mov al, 52
-	; int 0x10
-	
-	; ; mov al, [sector_count]
-	; ; int 0x10
-; disk_error5:
-	; mov al, ah
-	; ;add al, 50
-	; mov ah, 0x0e
-	; int 0x10
-	
-	; mov al, 53
-	; int 0x10
-	
-	; ; mov al, [sector_count]
-	; ; int 0x10
-; cli
-; hlt
+	int 0x10
+cli
+hlt

@@ -1,40 +1,6 @@
-frame:
-	push bp
-	mov bp, sp
+;; print.asm
 
-	xor cx, cx
-	mov si, cx
-	mov cx, 120			 ; replace if want different amount
-	;mov cx, word [bp+4] ; than 120 then need to implement push
-	
-	mov bx, word [bp+6]
-	mov es, bx
-	mov bx, word [bp+4]	 ; change pointer if above is changed (1) [bp+6]
-
-	.loop:
-	cmp cx, 0
-	je .end
-	dec cx
-	push cx
-	push si
-
-	push word [es:bx+si] ; [ES * 16 + BX + SI] i hope
-	call shift_print
-
-	pop si
-	pop cx
-	mov bx, word [bp+6]
-	mov es, bx
-	mov bx, word [bp+4]	 ; change pointer if above is changed (1) [bp+6]
-	add si, 2
-	jmp .loop
-
-	.end:
-	xor bx, bx
-	mov es, bx
-	pop bp
-ret 4		; change to 4 (6) if above is changed (1)
-
+; sets up a word of a frame
 shift_print:
 	push bp
 	mov bp, sp
@@ -44,11 +10,11 @@ shift_print:
 	cmp cl, 16
 	je .shift_print_end
 
+	; word to print
 	mov bx, word [bp+4]
 	shl bx, cl
 	push bx
 	call print
-	pop bx
 	inc cl
 	jmp .loop
 
@@ -58,6 +24,7 @@ shift_print:
 	pop bp
 ret 2
 
+; prints the bits in the word
 print:
 	push bp
 	mov bp, sp
@@ -67,12 +34,12 @@ print:
 	cmp bh, 0x80	; 1000 0000 ; 128
 	jb .zero
 	.one:
-		mov al, byte [foreground]
+		mov al, [foreground]
 		int 0x10
 		jmp .end_print
 	.zero:
-		mov al, byte [background]
+		mov al, [background]
 		int 0x10
 	.end_print:
 	pop bp
-ret
+ret 2
