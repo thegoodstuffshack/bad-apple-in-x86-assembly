@@ -46,7 +46,7 @@ start:
 	call video
 	;push 0x37e0
 	;call video
-	
+
 cli
 hlt
 
@@ -60,68 +60,6 @@ delay:
 	mov cx, 0x0000		; CX:DX interval in microseconds
 	mov dx, 0x1000		; roughly 29.54fps on qemu 
 	int 0x15			; delay between frames
-ret
-
-load_memory:
-; special load for first
-	mov ah, 0x02
-	mov al, [max_sectors]
-	dec al
-	mov ch, 0
-	mov cl, 2
-	mov dh, [head_count]
-	mov dl, [BOOT_DRIVE]
-	xor bx, bx		; need to change
-	mov es, bx
-	mov bx, 0x7e00	; ntc
-	int 0x13		; 0000:7c00
-	;jc disk_error
-	
-	inc byte [head_count]
-	
-	mov cx, 0
-	.loop:
-	cmp cx, 7
-	je .end
-	push cx
-	
-	; addresses
-	mov ax, 0x07c0
-	mul cx
-	mov bx, ax
-	mov es, bx
-	mov bx, 0xfa00
-
-	;int
-	mov ah, 0x02
-	mov al, [max_sectors]
-	mov ch, 0 ; cylinder
-	mov cl, 1 ; sector on track
-	mov dh, [head_count]
-	mov dl, [BOOT_DRIVE]
-	int 0x13
-	;jc disk_error
-	
-	inc byte [head_count]
-	pop cx
-	inc cx
-	jmp .loop
-	
-	.end:
-	; mov byte [head_count], 0
-	; mov ax, 0x07c0
-	; mul cx
-	; mov bx, ax
-	; mov es, bx
-	; mov bx, 0xfa00
-	; mov ah, 0x02
-	; mov al, [max_sectors]
-	; mov ch, 1 ; cylinder
-	; mov cl, 1 ; sector on track
-	; mov dh, [head_count]
-	; mov dl, [BOOT_DRIVE]
-	; int 0x13
-	; jc disk_error
 ret
 
 %include "print.asm"
