@@ -13,7 +13,7 @@ video:
 	;; add PIT here
 	
 	mov bx, [bp+4]	; value
-	mov es, bx
+	;mov es, bx
 	push bx
 
 	mov ax, 0x0100	; next frame (256 bytes)
@@ -22,7 +22,9 @@ video:
 	add bx, ax
 	push bx
 	
+	call pit_delay
 	call frame
+	call reset_cursor
 	call delay
 	
 	pop cx
@@ -42,7 +44,7 @@ frame:
 
 	xor cx, cx
 	mov si, cx
-	mov cx, 120	; words per frame	 ; replace if want different amount
+	mov cx, 122	; words per frame	 ; replace if want different amount
 	;mov cx, word [bp+4] ; than 120 then need to implement push
 	
 	mov bx, word [bp+6]

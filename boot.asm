@@ -7,6 +7,7 @@ jmp start
 foreground		db 35	; 219
 background 		db 32	; ascii space
 FRAME_NUMBER	dw 256	; 0x0000 + 0x0100 * x, max of x bfor cf
+PIT_VALUE		dw 0xFFFF	; reload value for PIT
 
 ; default values set in case of failed parameter check
 BOOT_DRIVE		db 0  ; si 		; init variable
@@ -32,6 +33,7 @@ start:
 	call check_disk_parameters
 	;call print_disk_parameters
 	call load_memory
+	call setup_pit
 
 	; sets cursor to invisible to remove flickering
 	mov ah, 0x01
@@ -40,28 +42,72 @@ start:
 	int 0x10
 
 	; print each frame_number segment
-	push 0x07e0
-	call video
+	;push 0x07e0
+	;call video
 	push 0x17e0
 	call video
-	push 0x27e0
-	call video
+	;push 0x27e0
+	;call video
 	;push 0x37e0
 	;call video
 	
 cli
 hlt
 
-delay:
+delay:	; deprecated
+	; mov ah, 0x02
+	; mov bh, 0
+	; xor dx, dx
+	; int 0x10
+	mov ah, 0x86
+	mov al, 0
+	mov cx, 0x0002		; CX:DX interval in microseconds
+	mov dx, 0xe000		;
+	int 0x15			; delay between frames
+ret
+
+reset_cursor:
 	mov ah, 0x02
 	mov bh, 0
 	xor dx, dx
 	int 0x10			; move cursor to 0,0
-	mov ah, 0x86
-	mov al, 0
-	mov cx, 0x0000		; CX:DX interval in microseconds
-	mov dx, 0x1000		;
-	int 0x15			; delay between frames
+ret
+
+setup_pit:
+	;; SETUP PIT
+	cli	; disable interrupts
+	
+	mov al, 0b00110100 ; channel 0, hibyte/lowbyte, square wave (mode 3), 16 bit binary
+	out 0x43, al	; send setup to PIT
+	
+	mov ax, 0x9b84	;9b89	; only even values in mode 3
+	; send PIT Reload Value (divisor from 1.193182 MHz)
+	out 0x40, al	
+	mov al, ah
+	out 0x40, al
+	
+	sti ; reenable interrupts
+ret
+
+pit_delay:
+	;; PIT
+	; cli	; disable interrupts
+
+	.init:
+	in al, 0x40	; read current PIT count
+	mov ah, al	; al = x, ah = x + 1
+	;inc ah		; when equal, trigger next frame
+	add ah, 255
+
+	.loop:
+	cmp ah, al
+	je .end
+	
+	in al, 0x40
+	jmp .loop
+	
+	.end:
+	sti ; reenable interrupts
 ret
 
 load_memory:

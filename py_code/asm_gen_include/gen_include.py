@@ -3,7 +3,7 @@ import time
 a = 1
 b = 3
 count = 6562
-dest = 'asm_include.txt'
+dest = 'frames.asm'
 outfile = open(dest, 'w')
 
 start = time.time()

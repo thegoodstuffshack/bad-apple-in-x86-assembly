@@ -1,3 +1,4 @@
+
 %include "data/bad_apple_01.data"
 times 3 * 256 - ($-$$) db 0
 %include "data/bad_apple_02.data"
@@ -2555,25 +2556,25 @@ times 1279 * 256 - ($-$$) db 0
 %include "data/bad_apple_1278.data"
 times 1280 * 256 - ($-$$) db 0
 %include "data/bad_apple_1279.data"
-; times 1281 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1280.data"
-; times 1282 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1281.data"
-; times 1283 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1282.data"
-; times 1284 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1283.data"
-; times 1285 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1284.data"
-; times 1286 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1285.data"
-; times 1287 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1286.data"
-; times 1288 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1287.data"
-; times 1289 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1288.data"
-; times 1290 * 256 - ($-$$) db 0
+times 1281 * 256 - ($-$$) db 0
+%include "data/bad_apple_1280.data"
+times 1282 * 256 - ($-$$) db 0
+%include "data/bad_apple_1281.data"
+times 1283 * 256 - ($-$$) db 0
+%include "data/bad_apple_1282.data"
+times 1284 * 256 - ($-$$) db 0
+%include "data/bad_apple_1283.data"
+times 1285 * 256 - ($-$$) db 0
+%include "data/bad_apple_1284.data"
+times 1286 * 256 - ($-$$) db 0
+%include "data/bad_apple_1285.data"
+times 1287 * 256 - ($-$$) db 0
+%include "data/bad_apple_1286.data"
+times 1288 * 256 - ($-$$) db 0
+%include "data/bad_apple_1287.data"
+times 1289 * 256 - ($-$$) db 0
+%include "data/bad_apple_1288.data"
+times 1290 * 256 - ($-$$) db 0
 ; %include "data/bad_apple_1289.data"
 ; times 1291 * 256 - ($-$$) db 0
 ; %include "data/bad_apple_1290.data"
