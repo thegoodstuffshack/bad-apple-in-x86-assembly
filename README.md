@@ -1,12 +1,13 @@
-# Print a Frame of Bits to Terminal
+# Bootloader that prints bad apple
 
-- https://www.dcode.fr/binary-image
 - https://archive.org/details/bad_apple_is.7z
-- format using macro:
-- 5x (db, 16x left arrow, comma, space) + del
-- then run til end of file
+- format frames using python code
 
+### HOW TO RUN
+##### Make
+''' nasm -f bin boot.asm -o os.bin '''
+##### RUN
+''' qemu-system-x86_64 os.bin '''
 
 ### TO DO
-- read all frames to memory when needed
-- print frames to screen
+- get the entire video working
