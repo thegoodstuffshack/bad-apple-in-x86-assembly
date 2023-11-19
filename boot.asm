@@ -8,6 +8,7 @@ foreground		db 35	; 219
 background 		db 32	; ascii space
 FRAME_NUMBER	dw 256	; 0x0000 + 0x0100 * x, max of x bfor cf
 
+; default values set in case of failed parameter check
 BOOT_DRIVE		db 0  ; si 		; init variable
 max_sectors		db 15 ; si+1	; 0-based from earlier dec
 max_heads		db 20 ; si+2	; not used yet
@@ -80,7 +81,7 @@ load_memory:
 	
 	inc byte [si+4]
 	
-	mov cx, 0
+	xor cx, cx
 	.loop:
 	cmp cx, 7
 	je .end
