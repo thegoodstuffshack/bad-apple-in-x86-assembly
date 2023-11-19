@@ -1,11 +1,14 @@
 check_disk_parameters:
 	push bp
 	mov bp, sp
+	
+	mov si, BOOT_DRIVE
+	
 	xor ax, ax
 	mov es, ax
 	mov di, ax
 	mov ah, 0x08
-	mov dl, [BOOT_DRIVE]
+	mov dl, [si]
 	int 0x13
 	;jc disk_error
 	
@@ -14,15 +17,15 @@ check_disk_parameters:
 	; bits 0-5 of cl is max sector no.
 	; starts at 1
 	and cx, 63 ; 0b00111111
-	mov [max_sectors], cl
+	mov [si+1], cl
 	
 	; dh has max no. of heads, starts at 0
 	mov dl, dh
-	mov [max_heads], dl
+	mov [si+2], dl
 	
 	; max cylinder no., starts at 0
 	mov cl, al
-	mov [max_cylinders], cl
+	mov [si+3], cl
 	pop bp
 ret
 
