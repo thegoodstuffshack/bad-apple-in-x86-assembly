@@ -3,124 +3,132 @@
 jmp start
 ;	Prints Frames to the screen
 
-;; DATA
-foreground db 35	; 219
-background db 32	; ascii space
+;; VARIABLES
+foreground		db 35	; 219
+background 		db 32	; ascii space
+BOOT_DRIVE		db 0     ; init variable
 
-;; TEXT
+FRAME_NUMBER	dw 256	; 0x0000 + 0x0100 * x, max of x bfor cf
+
+max_sectors		db 15	; 0-based from earlier dec
+max_heads		db 20
+max_cylinders 	db 0	; not really necessary
+
+head_count		db 0	; live head count
+
+;; CODE
 start:
-	;load data.bin
-	call read_data_to_memory
+    
+	xor ax, ax
+	mov ss, ax
+	mov ds, ax
+	mov es, ax
 	
-	push 0x7e00	; word [bp+6] ; first addr
-	push 70; word [bp+4] ; no.
-	call frame
-	push 0x8000	; word [bp+6] ; first addr
-	push 70; word [bp+4] ; no.
-	call frame
+	mov byte [BOOT_DRIVE], dl
+	mov al, dl
+	mov ah, 0x0e
+	int 0x10
+	
+	call check_disk_parameters
+	;call print_disk_parameters
+	call load_memory
+
+	mov ah, 0x01
+	mov ch, 0b0010
+	mov cl, 0b0000
+	int 0x10
+
+	push 0x07e0
+	call video
+	push 0x17e0
+	call video
+	push 0x27e0
+	call video
+	;push 0x37e0
+	;call video
+	
 cli
 hlt
 
-read_data_to_memory:
-	push bp
-	mov bp, sp
-	
+delay:
 	mov ah, 0x02
-	mov al, 1
+	mov bh, 0
+	xor dx, dx
+	int 0x10			; move cursor to 0,0
+	mov ah, 0x86
+	mov al, 0
+	mov cx, 0x0000		; CX:DX interval in microseconds
+	mov dx, 0x1000		; roughly 29.54fps on qemu 
+	int 0x15			; delay between frames
+ret
+
+load_memory:
+; special load for first
+	mov ah, 0x02
+	mov al, [max_sectors]
+	dec al
 	mov ch, 0
 	mov cl, 2
-	mov dh, 0
-	; xor bx, bx
-	; mov es, bx
-	mov bx, 0x7e00
-	int 0x13
+	mov dh, [head_count]
+	mov dl, [BOOT_DRIVE]
+	xor bx, bx		; need to change
+	mov es, bx
+	mov bx, 0x7e00	; ntc
+	int 0x13		; 0000:7c00
+	;jc disk_error
 	
-	mov ah, 0x02
-	mov al, 1
-	mov ch, 0
-	mov cl, 3
-	mov dh, 0
-	; xor bx, bx
-	; mov es, bx
-	mov bx, 0x8000
-	int 0x13
+	inc byte [head_count]
 	
-	; mov al, ah
-	; mov ah, 0x0e
-	; int 0x10
-	
-	pop bp
-ret
-
-frame:
-	push bp
-	mov bp, sp
-	
-	xor cx, cx
-	mov si, cx
-	mov cx, word [bp+4]
-	mov bx, word [bp+6]
-	
+	mov cx, 0
 	.loop:
-	cmp cx, 0
+	cmp cx, 7
 	je .end
-	dec cx
 	push cx
-	push si
 	
-	push word [bx+si]	; 0x7e00
-	call shift_print
+	; addresses
+	mov ax, 0x07c0
+	mul cx
+	mov bx, ax
+	mov es, bx
+	mov bx, 0xfa00
+
+	;int
+	mov ah, 0x02
+	mov al, [max_sectors]
+	mov ch, 0 ; cylinder
+	mov cl, 1 ; sector on track
+	mov dh, [head_count]
+	mov dl, [BOOT_DRIVE]
+	int 0x13
+	;jc disk_error
 	
-	pop si
+	inc byte [head_count]
 	pop cx
-	mov bx, word [bp+6]
-	add si, 2
+	inc cx
 	jmp .loop
-
+	
 	.end:
-	pop bp
+	; mov byte [head_count], 0
+	; mov ax, 0x07c0
+	; mul cx
+	; mov bx, ax
+	; mov es, bx
+	; mov bx, 0xfa00
+	; mov ah, 0x02
+	; mov al, [max_sectors]
+	; mov ch, 1 ; cylinder
+	; mov cl, 1 ; sector on track
+	; mov dh, [head_count]
+	; mov dl, [BOOT_DRIVE]
+	; int 0x13
+	; jc disk_error
 ret
 
-shift_print:
-	push bp
-	mov bp, sp
-	mov cl, 0
-	.loop:
-	cmp cl, 16
-	je .shift_print_end
-	
-	mov bx, word [bp+4]
-	shl bx, cl
-	push bx
-	call print
-	pop bx
-	inc cl
-	jmp .loop
-	
-	.shift_print_end:
-	; mov ax, 0x0e00
-	; int 0x10
-	pop bp
-ret	2
-	
-print: 
-	push bp
-	mov bp, sp
-	
-	mov ah, 0x0e
-	mov bx, word [bp+4]
-	cmp bh, 0x80	; 1000 0000 ; 128
-	jb .zero
-	.one:
-		mov al, byte [foreground]
-		int 0x10
-		jmp .end_print
-	.zero:
-		mov al, byte [background]
-		int 0x10
-	.end_print:
-	pop bp
-ret
+%include "print.asm"
+%include "video.asm"
+%include "disk_functions.asm"
 
 times 510 -($-$$) db 0
 dw 0xAA55
+
+%include "frames.asm"
