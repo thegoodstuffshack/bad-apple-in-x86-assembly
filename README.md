@@ -6,8 +6,13 @@
 ### HOW TO RUN
 ##### Make
 ``` nasm -f bin boot.asm -o os.bin ```
-##### RUN
+##### Run
 ``` qemu-system-x86_64 os.bin ```
+###### or alternatively run on bare-metal
+- requires legacy boot capable computer
+- convert .bin to .iso (I used gBurner)
+- place .iso in Ventoy and boot from usb
+- run in memdisk mode
 
 ### TO DO
 - get the entire video working
