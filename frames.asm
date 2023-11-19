@@ -2182,379 +2182,379 @@ times 1092 * 256 - ($-$$) db 0
 times 1093 * 256 - ($-$$) db 0
 %include "data/bad_apple_1092.data"
 times 1094 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1093.data"
-; times 1095 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1094.data"
-; times 1096 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1095.data"
-; times 1097 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1096.data"
-; times 1098 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1097.data"
-; times 1099 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1098.data"
-; times 1100 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1099.data"
-; times 1101 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1100.data"
-; times 1102 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1101.data"
-; times 1103 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1102.data"
-; times 1104 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1103.data"
-; times 1105 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1104.data"
-; times 1106 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1105.data"
-; times 1107 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1106.data"
-; times 1108 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1107.data"
-; times 1109 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1108.data"
-; times 1110 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1109.data"
-; times 1111 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1110.data"
-; times 1112 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1111.data"
-; times 1113 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1112.data"
-; times 1114 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1113.data"
-; times 1115 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1114.data"
-; times 1116 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1115.data"
-; times 1117 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1116.data"
-; times 1118 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1117.data"
-; times 1119 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1118.data"
-; times 1120 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1119.data"
-; times 1121 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1120.data"
-; times 1122 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1121.data"
-; times 1123 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1122.data"
-; times 1124 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1123.data"
-; times 1125 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1124.data"
-; times 1126 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1125.data"
-; times 1127 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1126.data"
-; times 1128 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1127.data"
-; times 1129 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1128.data"
-; times 1130 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1129.data"
-; times 1131 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1130.data"
-; times 1132 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1131.data"
-; times 1133 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1132.data"
-; times 1134 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1133.data"
-; times 1135 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1134.data"
-; times 1136 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1135.data"
-; times 1137 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1136.data"
-; times 1138 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1137.data"
-; times 1139 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1138.data"
-; times 1140 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1139.data"
-; times 1141 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1140.data"
-; times 1142 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1141.data"
-; times 1143 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1142.data"
-; times 1144 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1143.data"
-; times 1145 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1144.data"
-; times 1146 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1145.data"
-; times 1147 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1146.data"
-; times 1148 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1147.data"
-; times 1149 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1148.data"
-; times 1150 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1149.data"
-; times 1151 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1150.data"
-; times 1152 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1151.data"
-; times 1153 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1152.data"
-; times 1154 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1153.data"
-; times 1155 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1154.data"
-; times 1156 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1155.data"
-; times 1157 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1156.data"
-; times 1158 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1157.data"
-; times 1159 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1158.data"
-; times 1160 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1159.data"
-; times 1161 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1160.data"
-; times 1162 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1161.data"
-; times 1163 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1162.data"
-; times 1164 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1163.data"
-; times 1165 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1164.data"
-; times 1166 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1165.data"
-; times 1167 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1166.data"
-; times 1168 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1167.data"
-; times 1169 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1168.data"
-; times 1170 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1169.data"
-; times 1171 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1170.data"
-; times 1172 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1171.data"
-; times 1173 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1172.data"
-; times 1174 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1173.data"
-; times 1175 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1174.data"
-; times 1176 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1175.data"
-; times 1177 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1176.data"
-; times 1178 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1177.data"
-; times 1179 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1178.data"
-; times 1180 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1179.data"
-; times 1181 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1180.data"
-; times 1182 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1181.data"
-; times 1183 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1182.data"
-; times 1184 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1183.data"
-; times 1185 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1184.data"
-; times 1186 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1185.data"
-; times 1187 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1186.data"
-; times 1188 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1187.data"
-; times 1189 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1188.data"
-; times 1190 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1189.data"
-; times 1191 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1190.data"
-; times 1192 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1191.data"
-; times 1193 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1192.data"
-; times 1194 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1193.data"
-; times 1195 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1194.data"
-; times 1196 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1195.data"
-; times 1197 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1196.data"
-; times 1198 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1197.data"
-; times 1199 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1198.data"
-; times 1200 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1199.data"
-; times 1201 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1200.data"
-; times 1202 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1201.data"
-; times 1203 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1202.data"
-; times 1204 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1203.data"
-; times 1205 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1204.data"
-; times 1206 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1205.data"
-; times 1207 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1206.data"
-; times 1208 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1207.data"
-; times 1209 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1208.data"
-; times 1210 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1209.data"
-; times 1211 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1210.data"
-; times 1212 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1211.data"
-; times 1213 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1212.data"
-; times 1214 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1213.data"
-; times 1215 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1214.data"
-; times 1216 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1215.data"
-; times 1217 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1216.data"
-; times 1218 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1217.data"
-; times 1219 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1218.data"
-; times 1220 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1219.data"
-; times 1221 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1220.data"
-; times 1222 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1221.data"
-; times 1223 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1222.data"
-; times 1224 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1223.data"
-; times 1225 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1224.data"
-; times 1226 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1225.data"
-; times 1227 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1226.data"
-; times 1228 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1227.data"
-; times 1229 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1228.data"
-; times 1230 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1229.data"
-; times 1231 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1230.data"
-; times 1232 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1231.data"
-; times 1233 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1232.data"
-; times 1234 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1233.data"
-; times 1235 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1234.data"
-; times 1236 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1235.data"
-; times 1237 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1236.data"
-; times 1238 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1237.data"
-; times 1239 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1238.data"
-; times 1240 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1239.data"
-; times 1241 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1240.data"
-; times 1242 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1241.data"
-; times 1243 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1242.data"
-; times 1244 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1243.data"
-; times 1245 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1244.data"
-; times 1246 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1245.data"
-; times 1247 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1246.data"
-; times 1248 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1247.data"
-; times 1249 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1248.data"
-; times 1250 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1249.data"
-; times 1251 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1250.data"
-; times 1252 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1251.data"
-; times 1253 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1252.data"
-; times 1254 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1253.data"
-; times 1255 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1254.data"
-; times 1256 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1255.data"
-; times 1257 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1256.data"
-; times 1258 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1257.data"
-; times 1259 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1258.data"
-; times 1260 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1259.data"
-; times 1261 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1260.data"
-; times 1262 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1261.data"
-; times 1263 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1262.data"
-; times 1264 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1263.data"
-; times 1265 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1264.data"
-; times 1266 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1265.data"
-; times 1267 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1266.data"
-; times 1268 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1267.data"
-; times 1269 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1268.data"
-; times 1270 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1269.data"
-; times 1271 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1270.data"
-; times 1272 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1271.data"
-; times 1273 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1272.data"
-; times 1274 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1273.data"
-; times 1275 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1274.data"
-; times 1276 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1275.data"
-; times 1277 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1276.data"
-; times 1278 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1277.data"
-; times 1279 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1278.data"
-; times 1280 * 256 - ($-$$) db 0
-; %include "data/bad_apple_1279.data"
+%include "data/bad_apple_1093.data"
+times 1095 * 256 - ($-$$) db 0
+%include "data/bad_apple_1094.data"
+times 1096 * 256 - ($-$$) db 0
+%include "data/bad_apple_1095.data"
+times 1097 * 256 - ($-$$) db 0
+%include "data/bad_apple_1096.data"
+times 1098 * 256 - ($-$$) db 0
+%include "data/bad_apple_1097.data"
+times 1099 * 256 - ($-$$) db 0
+%include "data/bad_apple_1098.data"
+times 1100 * 256 - ($-$$) db 0
+%include "data/bad_apple_1099.data"
+times 1101 * 256 - ($-$$) db 0
+%include "data/bad_apple_1100.data"
+times 1102 * 256 - ($-$$) db 0
+%include "data/bad_apple_1101.data"
+times 1103 * 256 - ($-$$) db 0
+%include "data/bad_apple_1102.data"
+times 1104 * 256 - ($-$$) db 0
+%include "data/bad_apple_1103.data"
+times 1105 * 256 - ($-$$) db 0
+%include "data/bad_apple_1104.data"
+times 1106 * 256 - ($-$$) db 0
+%include "data/bad_apple_1105.data"
+times 1107 * 256 - ($-$$) db 0
+%include "data/bad_apple_1106.data"
+times 1108 * 256 - ($-$$) db 0
+%include "data/bad_apple_1107.data"
+times 1109 * 256 - ($-$$) db 0
+%include "data/bad_apple_1108.data"
+times 1110 * 256 - ($-$$) db 0
+%include "data/bad_apple_1109.data"
+times 1111 * 256 - ($-$$) db 0
+%include "data/bad_apple_1110.data"
+times 1112 * 256 - ($-$$) db 0
+%include "data/bad_apple_1111.data"
+times 1113 * 256 - ($-$$) db 0
+%include "data/bad_apple_1112.data"
+times 1114 * 256 - ($-$$) db 0
+%include "data/bad_apple_1113.data"
+times 1115 * 256 - ($-$$) db 0
+%include "data/bad_apple_1114.data"
+times 1116 * 256 - ($-$$) db 0
+%include "data/bad_apple_1115.data"
+times 1117 * 256 - ($-$$) db 0
+%include "data/bad_apple_1116.data"
+times 1118 * 256 - ($-$$) db 0
+%include "data/bad_apple_1117.data"
+times 1119 * 256 - ($-$$) db 0
+%include "data/bad_apple_1118.data"
+times 1120 * 256 - ($-$$) db 0
+%include "data/bad_apple_1119.data"
+times 1121 * 256 - ($-$$) db 0
+%include "data/bad_apple_1120.data"
+times 1122 * 256 - ($-$$) db 0
+%include "data/bad_apple_1121.data"
+times 1123 * 256 - ($-$$) db 0
+%include "data/bad_apple_1122.data"
+times 1124 * 256 - ($-$$) db 0
+%include "data/bad_apple_1123.data"
+times 1125 * 256 - ($-$$) db 0
+%include "data/bad_apple_1124.data"
+times 1126 * 256 - ($-$$) db 0
+%include "data/bad_apple_1125.data"
+times 1127 * 256 - ($-$$) db 0
+%include "data/bad_apple_1126.data"
+times 1128 * 256 - ($-$$) db 0
+%include "data/bad_apple_1127.data"
+times 1129 * 256 - ($-$$) db 0
+%include "data/bad_apple_1128.data"
+times 1130 * 256 - ($-$$) db 0
+%include "data/bad_apple_1129.data"
+times 1131 * 256 - ($-$$) db 0
+%include "data/bad_apple_1130.data"
+times 1132 * 256 - ($-$$) db 0
+%include "data/bad_apple_1131.data"
+times 1133 * 256 - ($-$$) db 0
+%include "data/bad_apple_1132.data"
+times 1134 * 256 - ($-$$) db 0
+%include "data/bad_apple_1133.data"
+times 1135 * 256 - ($-$$) db 0
+%include "data/bad_apple_1134.data"
+times 1136 * 256 - ($-$$) db 0
+%include "data/bad_apple_1135.data"
+times 1137 * 256 - ($-$$) db 0
+%include "data/bad_apple_1136.data"
+times 1138 * 256 - ($-$$) db 0
+%include "data/bad_apple_1137.data"
+times 1139 * 256 - ($-$$) db 0
+%include "data/bad_apple_1138.data"
+times 1140 * 256 - ($-$$) db 0
+%include "data/bad_apple_1139.data"
+times 1141 * 256 - ($-$$) db 0
+%include "data/bad_apple_1140.data"
+times 1142 * 256 - ($-$$) db 0
+%include "data/bad_apple_1141.data"
+times 1143 * 256 - ($-$$) db 0
+%include "data/bad_apple_1142.data"
+times 1144 * 256 - ($-$$) db 0
+%include "data/bad_apple_1143.data"
+times 1145 * 256 - ($-$$) db 0
+%include "data/bad_apple_1144.data"
+times 1146 * 256 - ($-$$) db 0
+%include "data/bad_apple_1145.data"
+times 1147 * 256 - ($-$$) db 0
+%include "data/bad_apple_1146.data"
+times 1148 * 256 - ($-$$) db 0
+%include "data/bad_apple_1147.data"
+times 1149 * 256 - ($-$$) db 0
+%include "data/bad_apple_1148.data"
+times 1150 * 256 - ($-$$) db 0
+%include "data/bad_apple_1149.data"
+times 1151 * 256 - ($-$$) db 0
+%include "data/bad_apple_1150.data"
+times 1152 * 256 - ($-$$) db 0
+%include "data/bad_apple_1151.data"
+times 1153 * 256 - ($-$$) db 0
+%include "data/bad_apple_1152.data"
+times 1154 * 256 - ($-$$) db 0
+%include "data/bad_apple_1153.data"
+times 1155 * 256 - ($-$$) db 0
+%include "data/bad_apple_1154.data"
+times 1156 * 256 - ($-$$) db 0
+%include "data/bad_apple_1155.data"
+times 1157 * 256 - ($-$$) db 0
+%include "data/bad_apple_1156.data"
+times 1158 * 256 - ($-$$) db 0
+%include "data/bad_apple_1157.data"
+times 1159 * 256 - ($-$$) db 0
+%include "data/bad_apple_1158.data"
+times 1160 * 256 - ($-$$) db 0
+%include "data/bad_apple_1159.data"
+times 1161 * 256 - ($-$$) db 0
+%include "data/bad_apple_1160.data"
+times 1162 * 256 - ($-$$) db 0
+%include "data/bad_apple_1161.data"
+times 1163 * 256 - ($-$$) db 0
+%include "data/bad_apple_1162.data"
+times 1164 * 256 - ($-$$) db 0
+%include "data/bad_apple_1163.data"
+times 1165 * 256 - ($-$$) db 0
+%include "data/bad_apple_1164.data"
+times 1166 * 256 - ($-$$) db 0
+%include "data/bad_apple_1165.data"
+times 1167 * 256 - ($-$$) db 0
+%include "data/bad_apple_1166.data"
+times 1168 * 256 - ($-$$) db 0
+%include "data/bad_apple_1167.data"
+times 1169 * 256 - ($-$$) db 0
+%include "data/bad_apple_1168.data"
+times 1170 * 256 - ($-$$) db 0
+%include "data/bad_apple_1169.data"
+times 1171 * 256 - ($-$$) db 0
+%include "data/bad_apple_1170.data"
+times 1172 * 256 - ($-$$) db 0
+%include "data/bad_apple_1171.data"
+times 1173 * 256 - ($-$$) db 0
+%include "data/bad_apple_1172.data"
+times 1174 * 256 - ($-$$) db 0
+%include "data/bad_apple_1173.data"
+times 1175 * 256 - ($-$$) db 0
+%include "data/bad_apple_1174.data"
+times 1176 * 256 - ($-$$) db 0
+%include "data/bad_apple_1175.data"
+times 1177 * 256 - ($-$$) db 0
+%include "data/bad_apple_1176.data"
+times 1178 * 256 - ($-$$) db 0
+%include "data/bad_apple_1177.data"
+times 1179 * 256 - ($-$$) db 0
+%include "data/bad_apple_1178.data"
+times 1180 * 256 - ($-$$) db 0
+%include "data/bad_apple_1179.data"
+times 1181 * 256 - ($-$$) db 0
+%include "data/bad_apple_1180.data"
+times 1182 * 256 - ($-$$) db 0
+%include "data/bad_apple_1181.data"
+times 1183 * 256 - ($-$$) db 0
+%include "data/bad_apple_1182.data"
+times 1184 * 256 - ($-$$) db 0
+%include "data/bad_apple_1183.data"
+times 1185 * 256 - ($-$$) db 0
+%include "data/bad_apple_1184.data"
+times 1186 * 256 - ($-$$) db 0
+%include "data/bad_apple_1185.data"
+times 1187 * 256 - ($-$$) db 0
+%include "data/bad_apple_1186.data"
+times 1188 * 256 - ($-$$) db 0
+%include "data/bad_apple_1187.data"
+times 1189 * 256 - ($-$$) db 0
+%include "data/bad_apple_1188.data"
+times 1190 * 256 - ($-$$) db 0
+%include "data/bad_apple_1189.data"
+times 1191 * 256 - ($-$$) db 0
+%include "data/bad_apple_1190.data"
+times 1192 * 256 - ($-$$) db 0
+%include "data/bad_apple_1191.data"
+times 1193 * 256 - ($-$$) db 0
+%include "data/bad_apple_1192.data"
+times 1194 * 256 - ($-$$) db 0
+%include "data/bad_apple_1193.data"
+times 1195 * 256 - ($-$$) db 0
+%include "data/bad_apple_1194.data"
+times 1196 * 256 - ($-$$) db 0
+%include "data/bad_apple_1195.data"
+times 1197 * 256 - ($-$$) db 0
+%include "data/bad_apple_1196.data"
+times 1198 * 256 - ($-$$) db 0
+%include "data/bad_apple_1197.data"
+times 1199 * 256 - ($-$$) db 0
+%include "data/bad_apple_1198.data"
+times 1200 * 256 - ($-$$) db 0
+%include "data/bad_apple_1199.data"
+times 1201 * 256 - ($-$$) db 0
+%include "data/bad_apple_1200.data"
+times 1202 * 256 - ($-$$) db 0
+%include "data/bad_apple_1201.data"
+times 1203 * 256 - ($-$$) db 0
+%include "data/bad_apple_1202.data"
+times 1204 * 256 - ($-$$) db 0
+%include "data/bad_apple_1203.data"
+times 1205 * 256 - ($-$$) db 0
+%include "data/bad_apple_1204.data"
+times 1206 * 256 - ($-$$) db 0
+%include "data/bad_apple_1205.data"
+times 1207 * 256 - ($-$$) db 0
+%include "data/bad_apple_1206.data"
+times 1208 * 256 - ($-$$) db 0
+%include "data/bad_apple_1207.data"
+times 1209 * 256 - ($-$$) db 0
+%include "data/bad_apple_1208.data"
+times 1210 * 256 - ($-$$) db 0
+%include "data/bad_apple_1209.data"
+times 1211 * 256 - ($-$$) db 0
+%include "data/bad_apple_1210.data"
+times 1212 * 256 - ($-$$) db 0
+%include "data/bad_apple_1211.data"
+times 1213 * 256 - ($-$$) db 0
+%include "data/bad_apple_1212.data"
+times 1214 * 256 - ($-$$) db 0
+%include "data/bad_apple_1213.data"
+times 1215 * 256 - ($-$$) db 0
+%include "data/bad_apple_1214.data"
+times 1216 * 256 - ($-$$) db 0
+%include "data/bad_apple_1215.data"
+times 1217 * 256 - ($-$$) db 0
+%include "data/bad_apple_1216.data"
+times 1218 * 256 - ($-$$) db 0
+%include "data/bad_apple_1217.data"
+times 1219 * 256 - ($-$$) db 0
+%include "data/bad_apple_1218.data"
+times 1220 * 256 - ($-$$) db 0
+%include "data/bad_apple_1219.data"
+times 1221 * 256 - ($-$$) db 0
+%include "data/bad_apple_1220.data"
+times 1222 * 256 - ($-$$) db 0
+%include "data/bad_apple_1221.data"
+times 1223 * 256 - ($-$$) db 0
+%include "data/bad_apple_1222.data"
+times 1224 * 256 - ($-$$) db 0
+%include "data/bad_apple_1223.data"
+times 1225 * 256 - ($-$$) db 0
+%include "data/bad_apple_1224.data"
+times 1226 * 256 - ($-$$) db 0
+%include "data/bad_apple_1225.data"
+times 1227 * 256 - ($-$$) db 0
+%include "data/bad_apple_1226.data"
+times 1228 * 256 - ($-$$) db 0
+%include "data/bad_apple_1227.data"
+times 1229 * 256 - ($-$$) db 0
+%include "data/bad_apple_1228.data"
+times 1230 * 256 - ($-$$) db 0
+%include "data/bad_apple_1229.data"
+times 1231 * 256 - ($-$$) db 0
+%include "data/bad_apple_1230.data"
+times 1232 * 256 - ($-$$) db 0
+%include "data/bad_apple_1231.data"
+times 1233 * 256 - ($-$$) db 0
+%include "data/bad_apple_1232.data"
+times 1234 * 256 - ($-$$) db 0
+%include "data/bad_apple_1233.data"
+times 1235 * 256 - ($-$$) db 0
+%include "data/bad_apple_1234.data"
+times 1236 * 256 - ($-$$) db 0
+%include "data/bad_apple_1235.data"
+times 1237 * 256 - ($-$$) db 0
+%include "data/bad_apple_1236.data"
+times 1238 * 256 - ($-$$) db 0
+%include "data/bad_apple_1237.data"
+times 1239 * 256 - ($-$$) db 0
+%include "data/bad_apple_1238.data"
+times 1240 * 256 - ($-$$) db 0
+%include "data/bad_apple_1239.data"
+times 1241 * 256 - ($-$$) db 0
+%include "data/bad_apple_1240.data"
+times 1242 * 256 - ($-$$) db 0
+%include "data/bad_apple_1241.data"
+times 1243 * 256 - ($-$$) db 0
+%include "data/bad_apple_1242.data"
+times 1244 * 256 - ($-$$) db 0
+%include "data/bad_apple_1243.data"
+times 1245 * 256 - ($-$$) db 0
+%include "data/bad_apple_1244.data"
+times 1246 * 256 - ($-$$) db 0
+%include "data/bad_apple_1245.data"
+times 1247 * 256 - ($-$$) db 0
+%include "data/bad_apple_1246.data"
+times 1248 * 256 - ($-$$) db 0
+%include "data/bad_apple_1247.data"
+times 1249 * 256 - ($-$$) db 0
+%include "data/bad_apple_1248.data"
+times 1250 * 256 - ($-$$) db 0
+%include "data/bad_apple_1249.data"
+times 1251 * 256 - ($-$$) db 0
+%include "data/bad_apple_1250.data"
+times 1252 * 256 - ($-$$) db 0
+%include "data/bad_apple_1251.data"
+times 1253 * 256 - ($-$$) db 0
+%include "data/bad_apple_1252.data"
+times 1254 * 256 - ($-$$) db 0
+%include "data/bad_apple_1253.data"
+times 1255 * 256 - ($-$$) db 0
+%include "data/bad_apple_1254.data"
+times 1256 * 256 - ($-$$) db 0
+%include "data/bad_apple_1255.data"
+times 1257 * 256 - ($-$$) db 0
+%include "data/bad_apple_1256.data"
+times 1258 * 256 - ($-$$) db 0
+%include "data/bad_apple_1257.data"
+times 1259 * 256 - ($-$$) db 0
+%include "data/bad_apple_1258.data"
+times 1260 * 256 - ($-$$) db 0
+%include "data/bad_apple_1259.data"
+times 1261 * 256 - ($-$$) db 0
+%include "data/bad_apple_1260.data"
+times 1262 * 256 - ($-$$) db 0
+%include "data/bad_apple_1261.data"
+times 1263 * 256 - ($-$$) db 0
+%include "data/bad_apple_1262.data"
+times 1264 * 256 - ($-$$) db 0
+%include "data/bad_apple_1263.data"
+times 1265 * 256 - ($-$$) db 0
+%include "data/bad_apple_1264.data"
+times 1266 * 256 - ($-$$) db 0
+%include "data/bad_apple_1265.data"
+times 1267 * 256 - ($-$$) db 0
+%include "data/bad_apple_1266.data"
+times 1268 * 256 - ($-$$) db 0
+%include "data/bad_apple_1267.data"
+times 1269 * 256 - ($-$$) db 0
+%include "data/bad_apple_1268.data"
+times 1270 * 256 - ($-$$) db 0
+%include "data/bad_apple_1269.data"
+times 1271 * 256 - ($-$$) db 0
+%include "data/bad_apple_1270.data"
+times 1272 * 256 - ($-$$) db 0
+%include "data/bad_apple_1271.data"
+times 1273 * 256 - ($-$$) db 0
+%include "data/bad_apple_1272.data"
+times 1274 * 256 - ($-$$) db 0
+%include "data/bad_apple_1273.data"
+times 1275 * 256 - ($-$$) db 0
+%include "data/bad_apple_1274.data"
+times 1276 * 256 - ($-$$) db 0
+%include "data/bad_apple_1275.data"
+times 1277 * 256 - ($-$$) db 0
+%include "data/bad_apple_1276.data"
+times 1278 * 256 - ($-$$) db 0
+%include "data/bad_apple_1277.data"
+times 1279 * 256 - ($-$$) db 0
+%include "data/bad_apple_1278.data"
+times 1280 * 256 - ($-$$) db 0
+%include "data/bad_apple_1279.data"
 ; times 1281 * 256 - ($-$$) db 0
 ; %include "data/bad_apple_1280.data"
 ; times 1282 * 256 - ($-$$) db 0

@@ -10,6 +10,8 @@ video:
 	je .end
 	push cx
 	
+	;; add PIT here
+	
 	mov bx, [bp+4]	; value
 	mov es, bx
 	push bx

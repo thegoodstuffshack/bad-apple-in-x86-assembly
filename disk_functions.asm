@@ -10,7 +10,7 @@ check_disk_parameters:
 	mov ah, 0x08
 	mov dl, [si]
 	int 0x13
-	;jc disk_error
+	jc disk_error
 	
 	mov al, ch	; preserve low 8 bits of cylinder max for later
 	

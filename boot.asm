@@ -33,11 +33,13 @@ start:
 	;call print_disk_parameters
 	call load_memory
 
+	; sets cursor to invisible to remove flickering
 	mov ah, 0x01
 	mov ch, 0b0010
 	mov cl, 0b0000
 	int 0x10
 
+	; print each frame_number segment
 	push 0x07e0
 	call video
 	push 0x17e0
@@ -77,13 +79,13 @@ load_memory:
 	mov es, bx
 	mov bx, 0x7e00	; ntc
 	int 0x13		; 0000:7c00
-	;jc disk_error
+	jc disk_error
 	
 	inc byte [si+4]
 	
 	xor cx, cx
 	.loop:
-	cmp cx, 7
+	cmp cx, 8
 	je .end
 	push cx
 	
@@ -102,7 +104,7 @@ load_memory:
 	mov dh, [si+4]
 	mov dl, [si]
 	int 0x13
-	;jc disk_error
+	jc disk_error
 	
 	inc byte [si+4]
 	pop cx
