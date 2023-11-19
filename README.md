@@ -5,9 +5,9 @@
 
 ### HOW TO RUN
 ##### Make
-''' nasm -f bin boot.asm -o os.bin '''
+``` nasm -f bin boot.asm -o os.bin ```
 ##### RUN
-''' qemu-system-x86_64 os.bin '''
+``` qemu-system-x86_64 os.bin ```
 
 ### TO DO
 - get the entire video working
