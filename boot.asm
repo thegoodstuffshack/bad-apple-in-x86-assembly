@@ -33,7 +33,7 @@ start:
 	call check_disk_parameters
 	;call print_disk_parameters
 	call load_memory
-	call setup_pit
+	;call setup_pit
 
 	; sets cursor to invisible to remove flickering
 	mov ah, 0x01
@@ -42,27 +42,29 @@ start:
 	int 0x10
 
 	; print each frame_number segment
-	;push 0x07e0
-	;call video
+	push 0x07e0
+	call video
 	push 0x17e0
 	call video
-	;push 0x27e0
-	;call video
-	;push 0x37e0
-	;call video
+	push 0x27e0
+	call video
+	push 0x37e0
+	call video
+	push 0x47e0
+	call video
 	
 cli
 hlt
 
-delay:	; deprecated
+delay:
 	; mov ah, 0x02
 	; mov bh, 0
 	; xor dx, dx
 	; int 0x10
 	mov ah, 0x86
 	mov al, 0
-	mov cx, 0x0002		; CX:DX interval in microseconds
-	mov dx, 0xe000		;
+	mov cx, 0x0000		; CX:DX interval in microseconds
+	mov dx, 0x3000		;
 	int 0x15			; delay between frames
 ret
 
@@ -71,43 +73,6 @@ reset_cursor:
 	mov bh, 0
 	xor dx, dx
 	int 0x10			; move cursor to 0,0
-ret
-
-setup_pit:
-	;; SETUP PIT
-	cli	; disable interrupts
-	
-	mov al, 0b00110100 ; channel 0, hibyte/lowbyte, square wave (mode 3), 16 bit binary
-	out 0x43, al	; send setup to PIT
-	
-	mov ax, 0x9b84	;9b89	; only even values in mode 3
-	; send PIT Reload Value (divisor from 1.193182 MHz)
-	out 0x40, al	
-	mov al, ah
-	out 0x40, al
-	
-	sti ; reenable interrupts
-ret
-
-pit_delay:
-	;; PIT
-	; cli	; disable interrupts
-
-	.init:
-	in al, 0x40	; read current PIT count
-	mov ah, al	; al = x, ah = x + 1
-	;inc ah		; when equal, trigger next frame
-	add ah, 255
-
-	.loop:
-	cmp ah, al
-	je .end
-	
-	in al, 0x40
-	jmp .loop
-	
-	.end:
-	sti ; reenable interrupts
 ret
 
 load_memory:
@@ -131,15 +96,14 @@ load_memory:
 	
 	xor cx, cx
 	.loop:
-	cmp cx, 8
+	cmp cx, 9
 	je .end
 	push cx
 	
 	; addresses
 	mov ax, 0x07c0
 	mul cx
-	mov bx, ax
-	mov es, bx
+	mov es, ax
 	mov bx, 0xfa00
 
 	;int
@@ -158,6 +122,26 @@ load_memory:
 	jmp .loop
 	
 	.end:
+	mov ax, 0x07c0
+	mul cx
+	mov es, ax	;
+	mov bx, 0xfa00
+	
+	mov al, [si+4]
+	mov ah, 0x0e
+	int 0x10
+	
+	mov ah, 0x02
+	mov al, 15;secotr no.	; 16 causes 0x0B disk error
+	mov ch, 0;cylinder
+	mov cl, 1
+	mov dh, [si+4];10;head
+	mov dl, [si]
+	int 0x13
+	jc disk_error
+	
+	xor bx, bx
+	mov es, bx
 ret
 
 %include "print.asm"

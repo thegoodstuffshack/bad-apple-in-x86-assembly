@@ -22,7 +22,7 @@ video:
 	add bx, ax
 	push bx
 	
-	call pit_delay
+	;call pit_delay
 	call frame
 	call reset_cursor
 	call delay

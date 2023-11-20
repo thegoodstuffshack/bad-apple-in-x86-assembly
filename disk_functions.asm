@@ -29,24 +29,24 @@ check_disk_parameters:
 	pop bp
 ret
 
-; print_disk_parameters:	;; change registers to 8 bit
-	; mov ah, 0x0e
+print_disk_parameters:	;; change registers to 8 bit
+	mov ah, 0x0e
 	
-	; mov al, [max_sectors]
-	; ;mov al, cl
-	; add al, 48
-	; int 0x10	; o is 63
+	mov al, [max_sectors]
+	;mov al, cl
+	add al, 48
+	int 0x10	; o is 63
 	
-	; mov al, [max_cylinders]
-	; ;mov al, cl
-	; add al, 48
-	; int 0x10	; 0 means 1 cylinder
+	mov al, [max_cylinders]
+	;mov al, cl
+	add al, 48
+	int 0x10	; 0 means 1 cylinder
 	
-	; mov al, [max_heads]
-	; ;mov al, cl
-	; add al, 48
-	; int 0x10	; ? means 16 heads
-; ret
+	mov al, [max_heads]
+	;mov al, cl
+	add al, 48
+	int 0x10	; ? means 16 heads
+ret
 
 disk_error:
 	mov cl, al
@@ -55,8 +55,8 @@ disk_error:
 	mov ah, 0x0e
 	int 0x10
 	
-	mov al, cl
-	int 0x10
+	;mov al, cl
+	;int 0x10
 	
 	mov al, 1
 	int 0x10
