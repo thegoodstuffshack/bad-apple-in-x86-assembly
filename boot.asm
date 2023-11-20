@@ -1,18 +1,18 @@
 [bits 16]
 [org 0x7c00]
 jmp start
-;	Prints Frames to the screen
 
-;; VARIABLES
-foreground		db 35	; 219
-background 		db 32	; ascii space
-FRAME_NUMBER	dw 256	; 0x0000 + 0x0100 * x, max of x bfor cf
-PIT_VALUE		dw 0xFFFF	; reload value for PIT
+;; CONSTANTS
+foreground		db	35		; character of 1, ascii hashtag
+background 		db 	32		; character of 0, ascii space
+FRAME_NUMBER	dw	256		; 0x0000 + 0x0100 * x, max of x before cf
+TIMER_ADDRESS 	equ	0x046c	; location of PIT timer count
+RELOAD_VALUE 	dw	0x9b84  ; determines tick speed of PIT
 
 ; default values set in case of failed parameter check
 BOOT_DRIVE		db 0  ; si 		; init variable
 max_sectors		db 15 ; si+1	; 0-based from earlier dec
-max_heads		db 20 ; si+2	; not used yet
+max_heads		db 15 ; si+2	; not used yet
 max_cylinders 	db 0  ; si+3	; not used yet
 
 head_count		db 0  ; si+4	; live head count
@@ -30,17 +30,18 @@ start:
 	mov ah, 0x0e
 	int 0x10
 	
+	call PIT_init
 	call check_disk_parameters
 	;call print_disk_parameters
 	call load_memory
-	;call setup_pit
+	;call PIT_timer
 
 	; sets cursor to invisible to remove flickering
 	mov ah, 0x01
 	mov ch, 0b0010
 	mov cl, 0b0000
 	int 0x10
-
+	
 	; print each frame_number segment
 	push 0x07e0
 	call video
@@ -50,23 +51,17 @@ start:
 	call video
 	push 0x37e0
 	call video
-	push 0x47e0
-	call video
+	; push 0x47e0
+	; call video
+	; push 0x57e0
+	; call video
+	; push 0x67e0
+	; call video
+	; push 0x77e0
+	; call video
 	
 cli
 hlt
-
-delay:
-	; mov ah, 0x02
-	; mov bh, 0
-	; xor dx, dx
-	; int 0x10
-	mov ah, 0x86
-	mov al, 0
-	mov cx, 0x0000		; CX:DX interval in microseconds
-	mov dx, 0x3000		;
-	int 0x15			; delay between frames
-ret
 
 reset_cursor:
 	mov ah, 0x02
@@ -86,7 +81,7 @@ load_memory:
 	mov cl, 2
 	mov dh, [si+4]
 	mov dl, [si]
-	xor bx, bx		; need to change
+	xor bx, bx
 	mov es, bx
 	mov bx, 0x7e00	; ntc
 	int 0x13		; 0000:7c00
@@ -96,7 +91,7 @@ load_memory:
 	
 	xor cx, cx
 	.loop:
-	cmp cx, 9
+	cmp cx, 9;byte [max_heads]
 	je .end
 	push cx
 	
@@ -122,31 +117,35 @@ load_memory:
 	jmp .loop
 	
 	.end:
+;=====================================
+; addresses
 	mov ax, 0x07c0
 	mul cx
-	mov es, ax	;
+	mov es, ax
 	mov bx, 0xfa00
-	
-	mov al, [si+4]
-	mov ah, 0x0e
-	int 0x10
-	
+
+	;int
 	mov ah, 0x02
-	mov al, 15;secotr no.	; 16 causes 0x0B disk error
-	mov ch, 0;cylinder
-	mov cl, 1
-	mov dh, [si+4];10;head
+	mov al, 15
+	mov ch, 0 ; cylinder
+	mov cl, 1 ; sector on track
+	mov dh, [si+4]
 	mov dl, [si]
 	int 0x13
 	jc disk_error
 	
-	xor bx, bx
-	mov es, bx
+	inc byte [si+4]
+	inc cx
+
+;======================================
 ret
 
-%include "print.asm"
-%include "video.asm"
 %include "disk_functions.asm"
+%include "video.asm"
+%include "pit.asm"
+%include "print.asm"
+
+
 
 times 510 -($-$$) db 0
 dw 0xAA55

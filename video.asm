@@ -10,11 +10,9 @@ video:
 	je .end
 	push cx
 	
-	;; add PIT here
-	
+	; should replace
 	mov bx, [bp+4]	; value
-	;mov es, bx
-	push bx
+	push bx		; immediately push for call frame
 
 	mov ax, 0x0100	; next frame (256 bytes)
 	mul cx
@@ -22,10 +20,12 @@ video:
 	add bx, ax
 	push bx
 	
-	;call pit_delay
+;;	WAIT for next tick to print frame
+	call PIT_timer
+	
 	call frame
 	call reset_cursor
-	call delay
+	;call delay
 	
 	pop cx
 	inc cx

@@ -10,7 +10,7 @@ check_disk_parameters:
 	mov ah, 0x08
 	mov dl, [si]
 	int 0x13
-	jc disk_error
+	;jc disk_error
 	
 	mov al, ch	; preserve low 8 bits of cylinder max for later
 	
@@ -48,17 +48,19 @@ print_disk_parameters:	;; change registers to 8 bit
 	int 0x10	; ? means 16 heads
 ret
 
-disk_error:
+disk_error:	; status, head, sector
 	mov cl, al
 	mov al, ah
-	;add al, 40
 	mov ah, 0x0e
 	int 0x10
 	
-	;mov al, cl
-	;int 0x10
-	
-	mov al, 1
+	mov al, [head_count]
 	int 0x10
+	
+	mov al, cl
+	int 0x10
+	
+	; mov al, 1
+	; int 0x10
 cli
 hlt

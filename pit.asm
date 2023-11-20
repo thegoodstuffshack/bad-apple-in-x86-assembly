@@ -1,41 +1,34 @@
-; setup_pit:
-	SETUP PIT
-	; cli	; disable interrupts
-	
-	; mov al, 0b00110100 ; channel 0, hibyte/lowbyte, square wave (mode 3), 16 bit binary
-	; out 0x43, al	; send setup to PIT
-	
-	; mov ax, 0x9b84	;9b89	; only even values in mode 3
-	send PIT Reload Value (divisor from 1.193182 MHz)
-	; out 0x40, al	
-	; mov al, ah
-	; out 0x40, al
-	
-	; sti ; reenable interrupts
-; ret
+;; pit.asm
 
-pit_delay:
-	;PIT
-	cli	; disable interrupts
+PIT_init:
+	cli
+	mov al, 0b00110100	; channel 0, lobyte/hibyte, mode 2, binary
+	out 0x43, al		; send to PIT controller
+	
+	mov ax, [RELOAD_VALUE]
+	out 0x40, al
+	mov al, ah
+	out 0x40, al
+	sti
+	
+	mov ah, 0x0e
+	mov al, 'p'
+	int 0x10
+ret
 
-	; .init:
-	; in al, 0x40	; read current PIT count
-	; mov ah, al	; al = x, ah = x + 1
-	; inc ah		; when equal, trigger next frame
-	; add ah, 255
-
-	; .loop:
-	; cmp ah, al
-	; je .end
+PIT_timer:
+	mov si, TIMER_ADDRESS
+	.timer:
+	mov ax, [si]
+	mov bx, ax
+	inc bx
 	
-	; in al, 0x40
-	; jmp .loop
+	.loop:
+	cmp ax, bx
+	jae .tick		; wait til PIT ticks
 	
-	; .end:
+	mov ax, [si]
+	jmp .loop
 	
-	;mov 
-	
-	
-	sti ; reenable interrupts
-	
+	.tick:
 ret
