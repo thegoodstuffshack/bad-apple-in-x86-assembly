@@ -16,14 +16,15 @@ max_heads		db 15 ; si+2	; not used yet
 max_cylinders 	db 0  ; si+3	; not used yet
 
 head_count		db 0  ; si+4	; live head count
+cylinder_count	db 0  ; si+5
 
 ;; CODE
 start:
     
-	; xor ax, ax
-	; mov ss, ax
-	; mov ds, ax
-	; mov es, ax
+	xor ax, ax
+	mov ss, ax
+	mov ds, ax
+	mov es, ax
 	
 	mov byte [BOOT_DRIVE], dl
 	mov al, dl
@@ -51,12 +52,12 @@ start:
 	call video
 	push 0x37e0
 	call video
-	; push 0x47e0
-	; call video
-	; push 0x57e0
-	; call video
-	; push 0x67e0
-	; call video
+	push 0x47e0
+	call video
+	push 0x57e0
+	call video
+	push 0x67e0
+	call video
 	; push 0x77e0
 	; call video
 	
@@ -70,14 +71,21 @@ reset_cursor:
 	int 0x10			; move cursor to 0,0
 ret
 
+disk_reset:
+	mov ah, 0x00
+	mov dl, [si]
+	int 0x13
+ret
+
 load_memory:
 	mov si, BOOT_DRIVE ; si equ BOOT_DRIVE address
+	call disk_reset
 
 ; special load for first
 	mov ah, 0x02
 	mov al, [si+1]
 	dec al
-	mov ch, 0
+	mov ch, [si+5]
 	mov cl, 2
 	mov dh, [si+4]
 	mov dl, [si]
@@ -89,11 +97,14 @@ load_memory:
 	
 	inc byte [si+4]
 	
+	.start_loop:
 	xor cx, cx
 	.loop:
-	cmp cx, 9;byte [max_heads]
-	je .end
+	cmp cl, 15;[max_heads]
+	je .cylinder_increment
 	push cx
+	
+	call disk_reset
 	
 	; addresses
 	mov ax, 0x07c0
@@ -104,7 +115,7 @@ load_memory:
 	;int
 	mov ah, 0x02
 	mov al, [si+1]
-	mov ch, 0 ; cylinder
+	mov ch, [si+5]
 	mov cl, 1 ; sector on track
 	mov dh, [si+4]
 	mov dl, [si]
@@ -116,28 +127,14 @@ load_memory:
 	inc cx
 	jmp .loop
 	
-	.end:
-;=====================================
-; addresses
-	mov ax, 0x07c0
-	mul cx
-	mov es, ax
-	mov bx, 0xfa00
-
-	;int
-	mov ah, 0x02
-	mov al, 15
-	mov ch, 0 ; cylinder
-	mov cl, 1 ; sector on track
-	mov dh, [si+4]
-	mov dl, [si]
-	int 0x13
-	jc disk_error
+	.cylinder_increment:
+	; mov cl, [si+3]
+	; cmp byte [si+5], cl
+	; je .end
+	; inc byte [si+5]
+	; jmp .start_loop
 	
-	inc byte [si+4]
-	inc cx
-
-;======================================
+	.end:
 ret
 
 %include "disk_functions.asm"
