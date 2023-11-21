@@ -19,12 +19,12 @@ shift_print:
 	jmp .loop
 
 	.shift_print_end:
-	; mov ax, 0x0e00
-	; int 0x10
 	pop bp
 ret 2
 
 ; prints the bits in the word
+; foreground	db	35	; character of 1, ascii hashtag
+; background 	db 	32	; character of 0, ascii space
 print:
 	push bp
 	mov bp, sp
@@ -34,11 +34,11 @@ print:
 	cmp bh, 0x80	; 1000 0000 ; 128
 	jb .zero
 	.one:
-		mov al, [foreground]
+		mov al, 35;[foreground]
 		int 0x10
 		jmp .end_print
 	.zero:
-		mov al, [background]
+		mov al, 32;[background]
 		int 0x10
 	.end_print:
 	pop bp

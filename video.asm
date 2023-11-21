@@ -6,7 +6,7 @@ video:
 	
 	mov cx, 0
 	.loop:
-	cmp cx, [FRAME_NUMBER]			;; frames ;;
+	cmp cx, 256 ;[FRAME_NUMBER]		;; frames ;;
 	je .end
 	push cx
 	

@@ -3,20 +3,19 @@
 jmp start
 
 ;; CONSTANTS
-foreground		db	35		; character of 1, ascii hashtag
-background 		db 	32		; character of 0, ascii space
-FRAME_NUMBER	dw	256		; 0x0000 + 0x0100 * x, max of x before cf
+;FRAME_NUMBER	dw	256		; 0x0000 + 0x0100 * x, max of x before cf
 TIMER_ADDRESS 	equ	0x046c	; location of PIT timer count
 RELOAD_VALUE 	dw	0x9b84  ; determines tick speed of PIT
 
 ; default values set in case of failed parameter check
 BOOT_DRIVE		db 0  ; si 		; init variable
 max_sectors		db 15 ; si+1	; 0-based from earlier dec
-max_heads		db 15 ; si+2	; not used yet
-max_cylinders 	db 0  ; si+3	; not used yet
+max_heads		db 255 ; si+2	; not used yet
+max_cylinders 	db 1  ; si+3	; not used yet
 
 head_count		db 0  ; si+4	; live head count
 cylinder_count	db 0  ; si+5
+loop_variable	db 0  ; si+6
 
 ;; CODE
 start:
@@ -43,7 +42,7 @@ start:
 	mov cl, 0b0000
 	int 0x10
 	
-	; print each frame_number segment
+	; ; print each frame_number segment
 	push 0x07e0
 	call video
 	push 0x17e0
@@ -57,8 +56,8 @@ start:
 	push 0x57e0
 	call video
 	push 0x67e0
-	call video
-	; push 0x77e0
+	call video	;; up to here works completely
+	; push 0x77e0	;; partially here
 	; call video
 	
 cli
@@ -77,7 +76,7 @@ disk_reset:
 	int 0x13
 ret
 
-load_memory:
+load_memory:	; loads as many frames as possible 
 	mov si, BOOT_DRIVE ; si equ BOOT_DRIVE address
 	call disk_reset
 
@@ -93,14 +92,17 @@ load_memory:
 	mov es, bx
 	mov bx, 0x7e00	; ntc
 	int 0x13		; 0000:7c00
-	jc disk_error
+	;jc disk_error
 	
 	inc byte [si+4]
 	
-	.start_loop:
+	.init_loop:
+	mov cl, byte [si+2]
+	mov byte [si+6], cl
 	xor cx, cx
+	
 	.loop:
-	cmp cl, 15;[max_heads]
+	cmp cl, [si+6]	; loop_variable
 	je .cylinder_increment
 	push cx
 	
@@ -120,7 +122,7 @@ load_memory:
 	mov dh, [si+4]
 	mov dl, [si]
 	int 0x13
-	jc disk_error
+	;jc disk_error
 	
 	inc byte [si+4]
 	pop cx
@@ -128,11 +130,19 @@ load_memory:
 	jmp .loop
 	
 	.cylinder_increment:
-	; mov cl, [si+3]
-	; cmp byte [si+5], cl
-	; je .end
-	; inc byte [si+5]
-	; jmp .start_loop
+	mov dl, cl
+	mov cl, [si+3]
+	cmp cl, [si+5]	; max cyl to cyl count
+	je .end
+	
+	inc byte [si+5]
+	mov byte [si+4], 0
+	mov al, [si+2]	; max_heads
+	mov cl, [si+5]	; cylinder_count
+	mul cl
+	mov byte [si+6], al
+	mov cl, dl
+	jmp .loop
 	
 	.end:
 ret
