@@ -1,7 +1,4 @@
 check_disk_parameters:
-	push bp
-	mov bp, sp
-	
 	mov si, BOOT_DRIVE
 	
 	xor ax, ax
@@ -26,7 +23,10 @@ check_disk_parameters:
 	; max cylinder no., starts at 0
 	mov cl, al
 	mov [si+3], cl
-	pop bp
+	
+	mov ah, 0x0e
+	mov al, 'd'
+	int 0x10
 ret
 
 ; print_disk_parameters:	;; change registers to 8 bit
@@ -62,5 +62,4 @@ disk_error:	; status, head, sector
 	
 	; mov al, 1
 	; int 0x10
-cli
 hlt
