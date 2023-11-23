@@ -17,18 +17,17 @@ PIT_init:
 ret
 
 PIT_timer:
-	mov si, TIMER_ADDRESS
 	.timer:
-	mov ax, [si]
+	mov ax, [TIMER_ADDRESS]
 	mov bx, ax
 	inc bx
 	
-	.loop:
+	.loop:		; real hardware gets stuck in this loop
 	cmp ax, bx
 	jae .tick		; wait til PIT ticks
 	;jmp .tick
 	
-	mov ax, [si]
+	mov ax, [TIMER_ADDRESS]
 	; mov ah, 0x0e
 	; mov al, 'l'
 	; int 0x10
@@ -36,6 +35,6 @@ PIT_timer:
 	
 	.tick:
 	mov ah, 0x0e
-	mov al, 't'
+	mov al, 't'		; fails to get here???
 	int 0x10
 ret

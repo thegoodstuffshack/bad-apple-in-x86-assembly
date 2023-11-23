@@ -24,10 +24,19 @@ frame_address	dw 0x7e00	; si+7
 ;; CODE
 start:
     
+	; xor ax, ax
+	; mov ss, ax
+	; mov ds, ax
+	; mov es, ax
 	xor ax, ax
-	mov ss, ax
 	mov ds, ax
+	mov si, ax
 	mov es, ax
+	
+	mov ax, 0x9000
+	mov ss, ax
+	mov sp, 0x0000
+	
 	
 	mov byte [BOOT_DRIVE], dl
 	mov al, dl
