@@ -6,7 +6,9 @@ jmp start
 ;FRAME_NUMBER		dw	256		; 0x0000 + 0x0100 * x, max of x before cf
 TIMER_ADDRESS 		equ	0x046c	; location of PIT timer count
 RELOAD_VALUE 		equ	0x9b84  ; determines tick speed of PIT
-number_of_frames 	equ	6562
+number_of_frames 	equ	3281	; divide frames by 2
+FOREGROUND 			equ 35
+BACKGROUND			equ 32
 
 ; default values set in case of failed parameter check
 BOOT_DRIVE		db 0 	; si 		; init variable
@@ -113,7 +115,7 @@ ret
 %include "load.asm"
 
 
-
+jmp $ ; catch in case code decides to run away
 times 510 -($-$$) db 0
 dw 0xAA55
 

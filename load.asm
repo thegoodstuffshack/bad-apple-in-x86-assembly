@@ -42,9 +42,9 @@ load_frame:
 	
 	mov ah, 2;0x02	; read data to memory
 	mov al, 1	; no. of sectors
-	mov ch, 1;[cylinder_count];[si+6]	; cylinder_count 
-	mov cl, 5;[sector_count];[si+4]	; sector in head
-	mov dh, 14;[head_count];[si+5]	; head_count
+	mov ch, [cylinder_count];[si+6]	; cylinder_count 
+	mov cl, [sector_count];[si+4]	; sector in head
+	mov dh, [head_count];[si+5]	; head_count
 	mov dl, [BOOT_DRIVE];[si]	; boot_drive
 	xor bx, bx
 	mov es, bx

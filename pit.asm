@@ -25,13 +25,13 @@ PIT_timer:
 	
 	.loop:
 	cmp ax, bx
-	;jae .tick		; wait til PIT ticks
-	jmp .tick
+	jae .tick		; wait til PIT ticks
+	;jmp .tick
 	
 	mov ax, [si]
-	mov ah, 0x0e
-	mov al, 'l'
-	int 0x10
+	; mov ah, 0x0e
+	; mov al, 'l'
+	; int 0x10
 	jmp .loop
 	
 	.tick:

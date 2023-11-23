@@ -1,6 +1,6 @@
 ;; print.asm
 
-frame:		; get frame, sends word to shifter
+frame:		; get frame, sends word to shiftprint
 	push bp
 	mov bp, sp
 
@@ -36,7 +36,7 @@ frame:		; get frame, sends word to shifter
 ret
 
 ; sets up a word of a frame
-shift_print:	; receives words, sends bits to printer
+shift_print:	; receives words, sends bits to print
 	push bp
 	mov bp, sp
 	
@@ -73,11 +73,11 @@ print:	; prints bits
 	cmp bh, 0x80	; 1000 0000 ; 128
 	jb .zero
 	.one:
-		mov al, 35;[foreground]
+		mov al, FOREGROUND
 		int 0x10
 		jmp .end_print
 	.zero:
-		mov al, 32;[background]
+		mov al, BACKGROUND
 		int 0x10
 	.end_print:
 	pop bp
