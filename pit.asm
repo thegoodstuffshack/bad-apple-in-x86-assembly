@@ -32,7 +32,7 @@ PIT_timer:
 	; mov al, 'l'
 	; int 0x10
 	jmp .loop
-	
+
 	.tick:
 	mov ah, 0x0e
 	mov al, 't'		; fails to get here???

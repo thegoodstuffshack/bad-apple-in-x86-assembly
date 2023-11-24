@@ -50,14 +50,14 @@ load_frame:
 	mov es, bx
 	mov bx, 0x7e00;[si+7]	; frame_address
 	int 0x13
-	jc retry
+	jc disk_error;retry
 	
 	mov ah, 0x0e
 	mov al, 'f'
 	int 0x10
 ret
 
-retry:
+retry:	; if used need to reset counter
 	mov cl, [retry_count]
 	cmp cl, 5
 	je disk_error
