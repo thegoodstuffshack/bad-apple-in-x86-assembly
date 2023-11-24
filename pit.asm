@@ -16,25 +16,32 @@ PIT_init:
 	int 0x10
 ret
 
-PIT_timer:
-	.timer:
-	mov ax, [TIMER_ADDRESS]
-	mov bx, ax
-	inc bx
-	
-	.loop:		; real hardware gets stuck in this loop
-	cmp ax, bx
-	jae .tick		; wait til PIT ticks
-	;jmp .tick
-	
-	mov ax, [TIMER_ADDRESS]
-	; mov ah, 0x0e
-	; mov al, 'l'
-	; int 0x10
-	jmp .loop
+PIT_timer:			; works on its own in normal_mode
 
-	.tick:
-	mov ah, 0x0e
-	mov al, 't'		; fails to get here???
-	int 0x10
+	mov ah, 0x86
+	mov al, 0
+	mov cx, 0x0000		; CX:DX interval in microseconds
+	mov dx, 0x3000		; roughly 29.54fps on qemu 
+	int 0x15			; delay between frames
+	
+	; .timer:
+	; mov ax, [TIMER_ADDRESS]
+	; mov bx, ax
+	; inc bx
+	
+	; .loop:		; real hardware gets stuck in this loop
+	; cmp ax, bx
+	; jae .tick		; wait til PIT ticks
+	; ; jmp .tick
+	
+	; mov ax, [TIMER_ADDRESS]
+	; ; mov ah, 0x0e
+	; ; mov al, 'l'
+	; ; int 0x10
+	; jmp .loop
+
+	; .tick:
+	; mov ah, 0x0e
+	; mov al, 't'		; fails to get here???
+	; int 0x10
 ret

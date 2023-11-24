@@ -7,7 +7,7 @@ check_disk_parameters:
 	mov ah, 0x08
 	mov dl, [si]
 	int 0x13
-	;jc disk_error
+	jc .end	; if read fails, dont overwrite default values
 	
 	mov al, ch	; preserve low 8 bits of cylinder max for later
 	
@@ -27,24 +27,26 @@ check_disk_parameters:
 	mov ah, 0x0e
 	mov al, 'd'
 	int 0x10
+	
+	.end:
 ret
 
-; print_disk_parameters:	;; change registers to 8 bit
+; print_disk_parameters:
 	; mov ah, 0x0e
 	
 	; mov al, [max_sectors]
 	; ; mov al, cl
-	; add al, 48
+	; ; add al, 48
 	; int 0x10	; o is 63
 	
 	; mov al, [max_cylinders]
 	; ; mov al, cl
-	; add al, 48
+	; ; add al, 48
 	; int 0x10	; 0 means 1 cylinder
 	
 	; mov al, [max_heads]
 	; ; mov al, cl
-	; add al, 48
+	; ; add al, 48
 	; int 0x10	; ? means 16 heads
 ; ret
 

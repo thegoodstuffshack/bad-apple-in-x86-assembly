@@ -1,6 +1,7 @@
 [bits 16]
 [org 0x7c00]
 jmp start
+resb 0x50
 
 ;; CONSTANTS
 ;FRAME_NUMBER		dw	256		; 0x0000 + 0x0100 * x, max of x before cf
@@ -14,7 +15,7 @@ BACKGROUND			equ 32
 BOOT_DRIVE		db 0 	; si 		; init variable
 max_sectors		db 15 	; si+1
 max_heads		db 255	; si+2
-max_cylinders 	db 1  	; si+3
+max_cylinders 	db 255 	; si+3
 
 sector_count	db 1		; si+4
 head_count		db 0	 	; si+5	; live head count
@@ -47,7 +48,10 @@ start:
 	call check_disk_parameters
 	;call print_disk_parameters
 	;call load_memory
-	;call PIT_timer
+	call PIT_timer
+	
+	
+	;call load_frame
 
 	; sets cursor to invisible to remove flickering
 	mov ah, 0x01
@@ -56,9 +60,9 @@ start:
 	int 0x10
 	
 	
-	mov ah, 0x0e
-	mov al, 'i'
-	int 0x10
+	; mov ah, 0x0e
+	; mov al, 'i'
+	; int 0x10
 	
 	mov cx, number_of_frames
 run:
@@ -98,11 +102,11 @@ run:
 cli
 hlt
 
-test_print:
-	mov ah, 0x0e
-	mov al, 47
-	int 0x10
-ret
+; test_print:
+	; mov ah, 0x0e
+	; mov al, 47
+	; int 0x10
+; ret
 
 reset_cursor:
 	mov ah, 0x02

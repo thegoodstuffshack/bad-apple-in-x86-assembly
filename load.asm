@@ -28,19 +28,19 @@ frame_handler:
 	int 0x10
 ret
 
-load_overflow:
-	mov ah, 0x0e
-	mov al, 2
-	int 0x10
-hlt
+; load_overflow:
+	; mov ah, 0x0e
+	; mov al, 2
+	; int 0x10
+; hlt
 
-retry_count db 0
+; retry_count db 0
 
 load_frame:
-	mov si, BOOT_DRIVE
+	;mov si, BOOT_DRIVE
 	call disk_reset
 	
-	mov ah, 2;0x02	; read data to memory
+	mov ah, 0x02	; read data to memory
 	mov al, 1	; no. of sectors
 	mov ch, [cylinder_count];[si+6]	; cylinder_count 
 	mov cl, [sector_count];[si+4]	; sector in head
@@ -57,11 +57,11 @@ load_frame:
 	int 0x10
 ret
 
-retry:	; if used need to reset counter
-	mov cl, [retry_count]
-	cmp cl, 5
-	je disk_error
-	inc byte [retry_count]
-	jmp load_frame
-hlt
+; retry:	; if used need to reset counter
+	; mov cl, [retry_count]
+	; cmp cl, 5
+	; je disk_error
+	; inc byte [retry_count]
+	; jmp load_frame
+; hlt
 	
