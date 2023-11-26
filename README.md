@@ -3,17 +3,22 @@
 - https://archive.org/details/bad_apple_is.7z
 - format frames using python code
 
-### HOW TO RUN
+### HOW TO RUN IN VM
 ##### Make
 ``` nasm -f bin boot.asm -o os.bin ```
 ##### Run
 ```qemu-system-x86_64 os.bin ```  
 ```qemu-system-x86_64 -device ide-hd,drive=dr,cyls=10,heads=16,secs=63 -drive if=none,id=dr,format=raw,file=os.bin```
-###### or alternatively run on bare-metal
+### HOW TO RUN ON BARE-METAL
 - requires legacy boot capable computer
-- convert .bin to .iso (I used gBurner)
-- place .iso in Ventoy and boot from usb
-- run in memdisk mode
+- i tested by creating a partition and using dd to copy the .bin
+```dd if=os.bin of=/dev/PARTITION```
+- add grub boot menu option by editing /boot/grub/grub.cfg
+```menuentry 'CHOSEN_NAME' {
+  set root=(DRIVE,PARTITION)
+  chainloader +1```
+- 
 
 ### TO DO
-- get the entire video working
+- add sound
+- add menu
