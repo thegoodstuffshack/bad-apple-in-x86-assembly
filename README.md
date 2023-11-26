@@ -19,7 +19,7 @@ menuentry 'CHOSEN_NAME' {
   set root=(DRIVE,PARTITION)
   chainloader +1
 ```
-- 
+- reboot and select new grub entry
 
 ### TO DO
 - add sound
