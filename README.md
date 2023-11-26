@@ -4,7 +4,7 @@
 - format frames using python code
 
 ### HOW TO RUN IN VM
-- see Master branch
+- see **master** branch
 ### HOW TO RUN ON BARE-METAL
 - requires legacy boot capable computer
 - you will need to edit source with start CHS location of partition which can be found using:
