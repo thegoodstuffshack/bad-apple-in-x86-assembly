@@ -1,29 +1,43 @@
 [bits 16]
 [org 0x7c00]
 jmp start
+resb 0x50
 
 ;; CONSTANTS
-;FRAME_NUMBER	dw	256		; 0x0000 + 0x0100 * x, max of x before cf
-TIMER_ADDRESS 	equ	0x046c	; location of PIT timer count
-RELOAD_VALUE 	dw	0x9b84  ; determines tick speed of PIT
+;FRAME_NUMBER		dw	256		; 0x0000 + 0x0100 * x, max of x before cf
+TIMER_ADDRESS 		equ	0x046c	; location of PIT timer count
+RELOAD_VALUE 		equ	0x9b84  ; determines tick speed of PIT
+number_of_frames 	equ	3281	; divide frames by 2
+FOREGROUND 			equ 35
+BACKGROUND			equ 32
 
 ; default values set in case of failed parameter check
-BOOT_DRIVE		db 0  ; si 		; init variable
-max_sectors		db 15 ; si+1	; 0-based from earlier dec
-max_heads		db 255 ; si+2	; not used yet
-max_cylinders 	db 1  ; si+3	; not used yet
+BOOT_DRIVE		db 0 	; si 		; init variable
+max_sectors		db 15 	; si+1
+max_heads		db 255	; si+2
+max_cylinders 	db 255 	; si+3
 
-head_count		db 0  ; si+4	; live head count
-cylinder_count	db 0  ; si+5
-loop_variable	db 0  ; si+6
+sector_count	db 1		; si+4
+head_count		db 0	 	; si+5	; live head count
+cylinder_count	db 0		; si+6
+frame_address	dw 0x7e00	; si+7
 
 ;; CODE
 start:
     
+	; xor ax, ax
+	; mov ss, ax
+	; mov ds, ax
+	; mov es, ax
 	xor ax, ax
-	mov ss, ax
 	mov ds, ax
+	mov si, ax
 	mov es, ax
+	
+	mov ax, 0x9000
+	mov ss, ax
+	mov sp, 0x0000
+	
 	
 	mov byte [BOOT_DRIVE], dl
 	mov al, dl
@@ -33,8 +47,11 @@ start:
 	call PIT_init
 	call check_disk_parameters
 	;call print_disk_parameters
-	call load_memory
-	;call PIT_timer
+	;call load_memory
+	call PIT_timer
+	
+	
+	;call load_frame
 
 	; sets cursor to invisible to remove flickering
 	mov ah, 0x01
@@ -42,26 +59,54 @@ start:
 	mov cl, 0b0000
 	int 0x10
 	
-	; ; print each frame_number segment
-	push 0x07e0
-	call video
-	push 0x17e0
-	call video
-	push 0x27e0
-	call video
-	push 0x37e0
-	call video
-	push 0x47e0
-	call video
-	push 0x57e0
-	call video
-	push 0x67e0
-	call video	;; up to here works completely
-	; push 0x77e0	;; partially here
-	; call video
 	
+	; mov ah, 0x0e
+	; mov al, 'i'
+	; int 0x10
+	
+	mov cx, number_of_frames
+run:
+	cmp cx, 0
+	je .end
+	dec cx
+	push cx
+	;call test_print
+	
+	mov ah, 0x0e
+	mov al, 'r'
+	int 0x10
+	
+	call PIT_timer
+	call frame_handler
+	call load_frame
+	call reset_cursor
+
+	call frame
+	call PIT_timer
+	call reset_cursor
+	
+	mov word [frame_address], 0x7f00
+	call frame
+	mov word [frame_address], 0x7e00
+	; assuming 2 frames per sector
+
+
+	;call test_print
+	pop cx
+	jmp run
+	
+	.end:
+	mov ah, 0x0e
+	mov al, 'e'
+	int 0x10
 cli
 hlt
+
+; test_print:
+	; mov ah, 0x0e
+	; mov al, 47
+	; int 0x10
+; ret
 
 reset_cursor:
 	mov ah, 0x02
@@ -76,84 +121,14 @@ disk_reset:
 	int 0x13
 ret
 
-load_memory:	; loads as many frames as possible 
-	mov si, BOOT_DRIVE ; si equ BOOT_DRIVE address
-	call disk_reset
-
-; special load for first
-	mov ah, 0x02
-	mov al, [si+1]
-	dec al
-	mov ch, [si+5]
-	mov cl, 2
-	mov dh, [si+4]
-	mov dl, [si]
-	xor bx, bx
-	mov es, bx
-	mov bx, 0x7e00	; ntc
-	int 0x13		; 0000:7c00
-	;jc disk_error
-	
-	inc byte [si+4]
-	
-	.init_loop:
-	mov cl, byte [si+2]
-	mov byte [si+6], cl
-	xor cx, cx
-	
-	.loop:
-	cmp cl, [si+6]	; loop_variable
-	je .cylinder_increment
-	push cx
-	
-	call disk_reset
-	
-	; addresses
-	mov ax, 0x07c0
-	mul cx
-	mov es, ax
-	mov bx, 0xfa00
-
-	;int
-	mov ah, 0x02
-	mov al, [si+1]
-	mov ch, [si+5]
-	mov cl, 1 ; sector on track
-	mov dh, [si+4]
-	mov dl, [si]
-	int 0x13
-	;jc disk_error
-	
-	inc byte [si+4]
-	pop cx
-	inc cx
-	jmp .loop
-	
-	.cylinder_increment:
-	mov dl, cl
-	mov cl, [si+3]
-	cmp cl, [si+5]	; max cyl to cyl count
-	je .end
-	
-	inc byte [si+5]
-	mov byte [si+4], 0
-	mov al, [si+2]	; max_heads
-	mov cl, [si+5]	; cylinder_count
-	mul cl
-	mov byte [si+6], al
-	mov cl, dl
-	jmp .loop
-	
-	.end:
-ret
 
 %include "disk_functions.asm"
-%include "video.asm"
 %include "pit.asm"
 %include "print.asm"
+%include "load.asm"
 
 
-
+jmp $ ; catch in case code decides to run away
 times 510 -($-$$) db 0
 dw 0xAA55
 

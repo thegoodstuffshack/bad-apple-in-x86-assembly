@@ -8,6 +8,7 @@
 ``` nasm -f bin boot.asm -o os.bin ```
 ##### Run
 ``` qemu-system-x86_64 os.bin ```
+``` qemu-system-x86_64 -device ide-hd,drive=dr,cyls=10,heads=16,secs=63 -drive if=none,id=dr,format=raw,file=os.bin```
 ###### or alternatively run on bare-metal
 - requires legacy boot capable computer
 - convert .bin to .iso (I used gBurner)
