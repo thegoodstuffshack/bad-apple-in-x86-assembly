@@ -16,7 +16,7 @@
 - add grub boot menu option by editing /boot/grub/grub.cfg
 ```menuentry 'CHOSEN_NAME' {
   set root=(DRIVE,PARTITION)
-  chainloader +1```
+  chainloader +1 ```
 - 
 
 ### TO DO
