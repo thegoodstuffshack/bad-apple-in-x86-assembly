@@ -117,19 +117,19 @@ ret
 
 disk_reset:
 	mov ah, 0x00
-	mov dl, [si]
+	mov dl, [BOOT_DRIVE]
 	int 0x13
 ret
 
 
-%include "disk_functions.asm"
-%include "pit.asm"
-%include "print.asm"
-%include "load.asm"
+%include "src/disk_functions.asm"
+%include "src/pit.asm"
+%include "src/print.asm"
+%include "src/load.asm"
 
 
 jmp $ ; catch in case code decides to run away
 times 510 -($-$$) db 0
 dw 0xAA55
 
-%include "frames.asm"
+%include "src/frames.asm"
