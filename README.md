@@ -7,8 +7,7 @@
 ##### Make
 ``` nasm -f bin src/boot.asm -o os.bin ```
 ##### Run
-```qemu-system-x86_64 os.bin ``` or  
-```qemu-system-x86_64 -device ide-hd,drive=dr,cyls=10,heads=16,secs=63 -drive if=none,id=dr,format=raw,file=os.bin```
+```qemu-system-x86_64 -device ide-hd,drive=dr,cyls=4,heads=16,secs=63 -drive if=none,id=dr,format=raw,file=os.bin```
 ### HOW TO RUN ON BARE-METAL
 - see **bare-metal** branch
 
