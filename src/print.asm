@@ -9,7 +9,6 @@ frame:		; get frame, sends word to shiftprint
 	mov cx, 122	; words per frame
 	
 	mov bx, [frame_address]
-	;mov bx, word [bp+4]
 
 	.loop:
 	cmp cx, 0
@@ -18,7 +17,6 @@ frame:		; get frame, sends word to shiftprint
 	push cx
 	push si
 
-	;call test_print
 	; push the word in the address
 	push word [bx+si] ; [ES * 16 + BX + SI]
 	call shift_print
