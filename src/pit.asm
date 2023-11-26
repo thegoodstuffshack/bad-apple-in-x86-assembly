@@ -24,24 +24,23 @@ PIT_timer:			; works on its own in normal_mode
 	mov dx, 0x3000		; roughly 29.54fps on qemu 
 	int 0x15			; delay between frames
 	
-	; .timer:
-	; mov ax, [TIMER_ADDRESS]
-	; mov bx, ax
-	; inc bx
+	.timer:
+	mov ax, [TIMER_ADDRESS]
+	mov bx, ax
+	inc bx
 	
-	; .loop:		; real hardware gets stuck in this loop
-	; cmp ax, bx
-	; jae .tick		; wait til PIT ticks
-	; ; jmp .tick
+	.loop:		; real hardware gets stuck in this loop
+	cmp ax, bx
+	jae .tick		; wait til PIT ticks
 	
-	; mov ax, [TIMER_ADDRESS]
-	; ; mov ah, 0x0e
-	; ; mov al, 'l'
-	; ; int 0x10
-	; jmp .loop
-
-	; .tick:
+	mov ax, [TIMER_ADDRESS]
 	; mov ah, 0x0e
-	; mov al, 't'		; fails to get here???
+	; mov al, 'l'
 	; int 0x10
+	jmp .loop
+
+	.tick:
+	mov ah, 0x0e
+	mov al, 't'		; fails to get here???
+	int 0x10
 ret
