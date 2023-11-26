@@ -14,9 +14,9 @@
 - i tested by creating a partition and using dd to copy the .bin
 ```dd if=os.bin of=/dev/PARTITION```
 - add grub boot menu option by editing /boot/grub/grub.cfg
-```menuentry 'CHOSEN_NAME' {
+~~~menuentry 'CHOSEN_NAME' {
   set root=(DRIVE,PARTITION)
-  chainloader +1 ```
+  chainloader +1~~~
 - 
 
 ### TO DO
