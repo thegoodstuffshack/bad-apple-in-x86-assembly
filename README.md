@@ -24,6 +24,7 @@ menuentry 'CHOSEN_NAME' {
 - reboot and select new grub entry
 
 ### TO DO
+- fine-tune pit for proper framerate
 - fix pit for bare-metal
 - add sound
 - add menu
