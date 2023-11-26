@@ -17,7 +17,7 @@ PIT_init:
 ret
 
 PIT_timer:			; works on its own in normal_mode
-
+				; not the 'proper way' to implement pit
 	mov ah, 0x86
 	mov al, 0
 	mov cx, 0x0000		; CX:DX interval in microseconds
