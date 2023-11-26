@@ -132,4 +132,4 @@ jmp $ ; catch in case code decides to run away
 times 510 -($-$$) db 0
 dw 0xAA55
 
-%include "src/frames.asm"
+%include "src/frames.asm"	; append frame data to .bin and compile
