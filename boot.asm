@@ -1,24 +1,23 @@
 [bits 16]
 [org 0x7c00]
 jmp start
-resb 0x50
 
 ;; CONSTANTS
 ;FRAME_NUMBER		dw	256		; 0x0000 + 0x0100 * x, max of x before cf
 TIMER_ADDRESS 		equ	0x046c	; location of PIT timer count
 RELOAD_VALUE 		equ	0x9b84  ; determines tick speed of PIT
 number_of_frames 	equ	3281	; divide frames by 2
-FOREGROUND 			equ 35
-BACKGROUND			equ 32
+FOREGROUND 		equ 	35
+BACKGROUND		equ 	32
 
 ; default values set in case of failed parameter check
-BOOT_DRIVE		db 0 	; si 		; init variable
-max_sectors		db 15 	; si+1
-max_heads		db 255	; si+2
+BOOT_DRIVE	db 0 	; si 		; init variable
+max_sectors	db 15 	; si+1
+max_heads	db 255	; si+2
 max_cylinders 	db 255 	; si+3
 
 sector_count	db 1		; si+4
-head_count		db 0	 	; si+5	; live head count
+head_count	db 0	 	; si+5	; live head count
 cylinder_count	db 0		; si+6
 frame_address	dw 0x7e00	; si+7
 
