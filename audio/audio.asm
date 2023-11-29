@@ -6,16 +6,21 @@ jmp start
 
 ;; VARIABLES
 
+; nasm -f bin audio.asm -o test.bin
+; qemu-system-x86_64 -audiodev dsound,id=id -machine pcspk-audiodev=id test.bin
+
 start:
 	call test
 	
 	call pc_speaker_init
+	
+	jump:
 	call sound
-	call delay
-	call stop
+	;call delay
+	;call stop
  
 	call test
-	jmp start
+	jmp jump
 cli
 hlt
 
@@ -45,12 +50,15 @@ delay:
 	int 0x15
 ret
 
+
+; 1.1931816666 MHz, 1193182Hz / value = freq
+
 pc_speaker_init:
 	cli
 	mov al, 0b10110110 ; channel 2, hi/lo, mode 3
 	out 0x43, al
 
-	mov ax, 0x0077
+	mov ax, 0x1128
 	out 0x42, al
 	mov al, ah
 	out 0x42, al
