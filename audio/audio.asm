@@ -4,6 +4,12 @@ jmp start
 
 ;; CONSTANTS
 
+MIDDLE_C equ 0x11d0
+MIDDLE_D equ 0x0fe0
+MIDDLE_E equ 0x0e24
+MIDDLE_F equ 0x0d58
+MIDDLE_G equ 0x0be4
+
 ;; VARIABLES
 
 ; nasm -f bin audio.asm -o test.bin
@@ -11,16 +17,47 @@ jmp start
 
 start:
 	call test
-	
 	call pc_speaker_init
+	
+	.loop:
+	mov ax, MIDDLE_C
+	call hz_change
 	call sound
-	;call delay
-	;call stop
- 
-	call test
-	jmp $
+	call delay
+	
+	mov ax, MIDDLE_D
+	call sound
+	call delay
+	
+	mov ax, MIDDLE_E
+	call hz_change
+	call sound
+	call delay
+	
+	mov ax, MIDDLE_F
+	call hz_change
+	call sound
+	call delay
+	
+	mov ax, MIDDLE_G
+	call hz_change
+	call sound
+	call delay
+	
+	call stop
+	call delay
+	
+	jmp start
 cli
 hlt
+
+hz_change:
+	cli
+	out 0x42, al
+	mov al, ah
+	out 0x42, al
+	sti
+ret
 
 test:
 	mov ah, 0x0e
@@ -43,7 +80,7 @@ ret
 delay:
 	mov ah, 0x86
 	mov al, 0
-	mov cx, 0x0000
+	mov cx, 0x0002
 	mov dx, 0xf000
 	int 0x15
 ret
