@@ -11,11 +11,11 @@ start:
 	
 	call pc_speaker_init
 	call sound
-	call delay
-	call stop
+	;call delay
+	;call stop
  
 	call test
-	jmp start
+	jmp $
 cli
 hlt
 
