@@ -17,7 +17,7 @@ MIDDLE_G equ 0x0be4
 
 start:
 	call test
-	call pc_speaker_init
+	call pc_speaker_init ; starting spk here causes lengthened first note
 	
 	.loop:
 	mov ax, MIDDLE_C
