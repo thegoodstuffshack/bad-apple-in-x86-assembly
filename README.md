@@ -13,6 +13,5 @@
 
 ### TO DO
 - fine-tune pit for proper framerate
-- fix pit for bare-metal
 - add sound
 - add menu
