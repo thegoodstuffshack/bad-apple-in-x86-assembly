@@ -48,12 +48,15 @@ delay:
 	int 0x15
 ret
 
+; desired frequency = 1193181.666... / input value
+; round to nearest even value (maybe idfk)
+
 pc_speaker_init:
 	cli
 	mov al, 0b10110110 ; channel 2, hi/lo, mode 3
 	out 0x43, al
 
-	mov ax, 0x0077
+	mov ax, 0x11D0	; input value
 	out 0x42, al
 	mov al, ah
 	out 0x42, al
