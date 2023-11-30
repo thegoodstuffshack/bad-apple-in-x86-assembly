@@ -20,7 +20,7 @@ start:
 	;call stop
  
 	call test
-	jmp jump
+	jmp $
 cli
 hlt
 
