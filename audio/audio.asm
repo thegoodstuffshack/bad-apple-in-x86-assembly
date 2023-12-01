@@ -15,8 +15,14 @@ start:
 	call test
 	call speaker_init
 
+	mov ax, 0x1010
+	call hz_change
+	call on
+	jmp $
+
+
 	.loop:
-	mov si, LOW_A
+	mov si, BASS
 	call music_player
 	jmp .loop
 cli
@@ -43,7 +49,7 @@ ret
 delay:	; make from PIT instead
 	mov ah, 0x86
 	mov al, 0
-	mov cx, 0x0002
+	mov cx, 0x000f
 	mov dx, 0xf000
 	int 0x15
 ret
