@@ -59,3 +59,5 @@ dest = "note_defs.data"
 with open(dest, 'w') as dest:
     for d in dict:
         dest.write(dict[d] + '\n')
+        
+# middle c is 
