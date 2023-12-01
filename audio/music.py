@@ -1,7 +1,7 @@
 from math import floor
 from math import ceil
 
-
+# if you dont like it kill me
 # https://pages.mtu.edu/~suits/NoteFreqCalcs.html
 n = -21
 BF = 14318180

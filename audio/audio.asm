@@ -15,8 +15,10 @@ start:
 	call test
 	call speaker_init
 
+	.loop:
 	mov si, LOW_A
 	call music_player
+	jmp .loop
 cli
 hlt
 
