@@ -3,7 +3,7 @@
 jmp start
 
 ;; CONSTANTS
-
+%include "notes.data"
 MIDDLE_C equ 0x11d0
 MIDDLE_D equ 0x0fe0
 MIDDLE_E equ 0x0e24
