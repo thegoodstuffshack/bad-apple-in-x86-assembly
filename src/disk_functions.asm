@@ -1,3 +1,5 @@
+;; disk_functions.asm
+
 check_disk_parameters:
 	mov si, BOOT_DRIVE
 	
@@ -24,14 +26,10 @@ check_disk_parameters:
 	mov cl, al
 	mov [si+3], cl
 	
-	mov ah, 0x0e
-	mov al, 'd'
-	int 0x10
-	
 	.end:
 ret
 
-; print_disk_parameters:
+; print_disk_parameters:	; for debugging
 	; mov ah, 0x0e
 	
 	; mov al, [max_sectors]
@@ -49,6 +47,12 @@ ret
 	; ; add al, 48
 	; int 0x10	; ? means 16 heads
 ; ret
+
+disk_reset:
+	mov ah, 0x00
+	mov dl, [BOOT_DRIVE]
+	int 0x13
+ret
 
 disk_error:	; status, head, sector
 	mov cl, al
