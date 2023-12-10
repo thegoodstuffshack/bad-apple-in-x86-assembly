@@ -1,49 +1,64 @@
-;LOW_C	dw 0x1ab90
-;LOW_C#	dw 0x19390
-;LOW_D	dw 0x17cea
-;LOW_D#	dw 0x16788
-;LOW_E	dw 0x1535a
-;LOW_F	dw 0x1404e
-;LOW_F#	dw 0x12e54
-;LOW_G	dw 0x11d5c
-;LOW_G#	dw 0x10d58
-BASS	dw 0xffff
-LOW_A	dw 0xfe3a
-LOW_A#	dw 0xeff6
-LOW_B	dw 0xe27e
-MID_C	dw 0xd5c8   ; middle c
-MID_C#	dw 0xc9c8
-MID_D	dw 0xbe74
-MID_D#	dw 0xb3c4
-MID_E	dw 0xa9ae
-MID_F	dw 0xa028
-MID_F#	dw 0x972a
-MID_G	dw 0x8eae
-MID_G#	dw 0x86ac
-MID_A	dw 0x7f1e
-MID_A#	dw 0x77fa
-MID_B	dw 0x7140
-UPP_C	dw 0x6ae4
-UPP_C#	dw 0x64e4
-UPP_D	dw 0x5f3a
-UPP_D#	dw 0x59e2
-UPP_E	dw 0x54d6
-UPP_F	dw 0x5014
-UPP_F#	dw 0x4b96
-UPP_G	dw 0x4758
-UPP_G#	dw 0x4356
-UPP_A	dw 0x3f8e
-UPP_A#	dw 0x3bfe
-UPP_B	dw 0x38a0
-HIGH_C	dw 0x3572
-HIGH_C#	dw 0x3272
-HIGH_D	dw 0x2f9e
-HIGH_D#	dw 0x2cf2
-HIGH_E	dw 0x2a6c
-HIGH_F	dw 0x280a
-HIGH_F#	dw 0x25ca
-HIGH_G	dw 0x23ac
-HIGH_G#	dw 0x21ac
-HIGH_A	dw 0x1fc8
-HIGH_A#	dw 0x1dfe
-HIGH_B	dw 0x1c50
+;; Notes
+
+BASS	dw 0x4000	; 72 Hz		; si
+; LOW_C	dw 0x23a2	; 130 Hz
+; LOW_C#	dw 0x21a2
+; LOW_D	dw 0x1fbe
+; LOW_D#	dw 0x1df6
+; LOW_E	dw 0x1c48
+; LOW_F	dw 0x1ab2
+; LOW_F#	dw 0x1932
+; LOW_G	dw 0x17c8
+; LOW_G#	dw 0x1672
+; LOW_A	dw 0x1530
+; LOW_A#	dw 0x1400
+; LOW_B	dw 0x12e0
+; MID_C	dw 0x11d0	; 261 Hz
+MID_C#	dw 0x10d0				; si+2
+MID_D	dw 0xfe0				; si+4
+MID_D#	dw 0xefc				; si+6
+; MID_E	dw 0xe24
+MID_F	dw 0xd58				; si+8
+MID_F#	dw 0xc98				; si+10
+; MID_G	dw 0xbe4
+MID_G#	dw 0xb3a				; si+12
+; MID_A	dw 0xa98
+MID_A#	dw 0xa00				; si+14
+; MID_B	dw 0x970
+; UPP_C	dw 0x8e8
+UPP_C#	dw 0x868				; si+16
+; UPP_D	dw 0x7f0
+UPP_D#	dw 0x77e				; si+18
+; UPP_E	dw 0x712
+UPP_F	dw 0x6ac				; si+20
+UPP_F#	dw 0x64c				; si+22
+; UPP_G	dw 0x5f2
+UPP_G#	dw 0x59c				; si+24
+; UPP_A	dw 0x54c
+; UPP_A#	dw 0x500
+; UPP_B	dw 0x4b8
+; HIGH_C	dw 0x474
+; HIGH_C#	dw 0x434
+; HIGH_D	dw 0x3f8
+; HIGH_D#	dw 0x3be
+; HIGH_E	dw 0x388
+; HIGH_F	dw 0x356
+; HIGH_F#	dw 0x326
+; HIGH_G	dw 0x2f8
+; HIGH_G#	dw 0x2ce
+; HIGH_A	dw 0x2a6
+; HIGH_A#	dw 0x280
+; HIGH_B	dw 0x25c	; 1975 Hz
+REST_	dw 0x356 ; placeholder	; si+26
+;; TIMINGS
+; Need to be able to play semiquavers, triplets
+; LCM of 3 and 4 is 12	
+; 138 BPM -> 0.435 BPS -> 435 ms -> 2.29885057471 Hz
+; Hz * 12 gives audio refresh value -> 27.5862068966
+; PIT reload value = 43252 = 0xA8F4
+SEMIQUAVER	db 3				; di
+TRIPLET		db 4				; di+1
+QUAVER		db 6				; di+2
+CROTCHET	db 12				; di+3
+MINUM		db 24				; di+4
+SEMIBREVE	db 48				; di+5

@@ -4,12 +4,11 @@ from math import ceil
 # if you dont like it kill me
 # https://pages.mtu.edu/~suits/NoteFreqCalcs.html
 n = -21
-BF = 14318180
+BF = 1193182
 
 notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
-octaves = ['lorem_ipsum', 'LOW', 'MID', 'UPP', 'HIGH']
-count = m = 0
-o = 1
+octaves = ['LOW', 'MID', 'UPP', 'HIGH']
+count = m = o = 0
 
 dict = dict([])
 
@@ -19,11 +18,11 @@ while count < 48:
     #print(note)
     
     if count == 11:
-        o = 2
+        o = 1
     elif count == 23:
-        o = 3
+        o = 2
     elif count == 35:
-        o = 4
+        o = 3
     
     m += 1
     if m >= 12:
@@ -59,5 +58,3 @@ dest = "note_defs.data"
 with open(dest, 'w') as dest:
     for d in dict:
         dest.write(dict[d] + '\n')
-        
-# middle c is 
