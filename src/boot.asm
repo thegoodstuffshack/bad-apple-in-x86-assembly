@@ -11,7 +11,7 @@ BACKGROUND		equ 	32
 
 ; default values set in case of failed parameter check
 BOOT_DRIVE	db 0 	; si 		; init variable
-max_sectors	db 15 	; si+1
+max_sectors	db 63 	; si+1
 max_heads	db 255	; si+2
 max_cylinders 	db 255 	; si+3
 
@@ -26,11 +26,11 @@ start:
 	xor ax, ax
 	mov ds, ax
 	mov si, ax
+	mov ds, ax
 	mov es, ax
 	
-	mov ax, 0x9000
 	mov ss, ax
-	mov sp, 0x0000
+	mov sp, 0x7c00
 	
 	mov byte [BOOT_DRIVE], dl
 	mov al, dl
