@@ -1,4 +1,4 @@
-# Bootloader that prints bad apple
+# Bootloader that plays bad apple
 
 - https://archive.org/details/bad_apple_is.7z
 - format frames using python code
