@@ -16,6 +16,7 @@ max_heads	db 255	; si+2
 max_cylinders 	db 255 	; si+3
 
 ; edit these values if running on bare-metal
+; e.g. if partition starts at C/H/S 62/40/25 then the respective counts are equal to 62, 45 and 25
 cylinder_count	db 0		; si+4
 head_count	db 0	 	; si+5
 sector_count	db 1		; si+6
