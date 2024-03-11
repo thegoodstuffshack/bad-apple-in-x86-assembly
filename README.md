@@ -30,6 +30,7 @@
 ```dd if=os.bin of=/dev/PARTITION```
 
 - add grub boot menu option by editing /boot/grub/grub.cfg
+- the (DRIVE,PARTITION) can be found through grub command line ```ls``` , e.g. (hd0,msdos2)
 
 ```
 menuentry 'CHOSEN_NAME' {
