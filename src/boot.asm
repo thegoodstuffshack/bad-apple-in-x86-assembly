@@ -5,7 +5,7 @@ jmp start
 ;; CONSTANTS
 TIMER_ADDRESS 		equ	0x046c	; location of PIT timer count
 RELOAD_VALUE 		equ	0x9b84  ; determines tick speed of PIT
-number_of_frames 	equ	3281	; divide frames by 2
+number_of_frames 	equ	6562 /2	; divide frames by 2
 FOREGROUND 		equ 	35
 BACKGROUND		equ 	32
 
@@ -81,7 +81,7 @@ reset_cursor:
 	mov ah, 0x02
 	mov bh, 0
 	xor dx, dx
-	int 0x10			; move cursor to 0,0
+	int 0x10		; move cursor to 0,0
 ret
 
 disk_reset:
