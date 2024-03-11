@@ -1,5 +1,12 @@
-resize then main
+# formatting code
 
-need to refactor python
-need to measure speed
-need to combine everything
+## to format
+
+- install frames from <https://archive.org/details/bad_apple_is.7z>
+- extract frames to repo folder
+- make directory 'data' in repo
+- run main.py in py_code
+
+## dependencies
+
+- cv2 4.8.1
