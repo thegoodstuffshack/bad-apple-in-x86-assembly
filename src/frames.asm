@@ -1,20 +1,21 @@
-%include "data/bad_apple_01.data"
+
+%include "data/bad_apple_001.data"
 times 3 * 256 - ($-$$) db 0
-%include "data/bad_apple_02.data"
+%include "data/bad_apple_002.data"
 times 4 * 256 - ($-$$) db 0
-%include "data/bad_apple_03.data"
+%include "data/bad_apple_003.data"
 times 5 * 256 - ($-$$) db 0
-%include "data/bad_apple_04.data"
+%include "data/bad_apple_004.data"
 times 6 * 256 - ($-$$) db 0
-%include "data/bad_apple_05.data"
+%include "data/bad_apple_005.data"
 times 7 * 256 - ($-$$) db 0
-%include "data/bad_apple_06.data"
+%include "data/bad_apple_006.data"
 times 8 * 256 - ($-$$) db 0
-%include "data/bad_apple_07.data"
+%include "data/bad_apple_007.data"
 times 9 * 256 - ($-$$) db 0
-%include "data/bad_apple_08.data"
+%include "data/bad_apple_008.data"
 times 10 * 256 - ($-$$) db 0
-%include "data/bad_apple_09.data"
+%include "data/bad_apple_009.data"
 times 11 * 256 - ($-$$) db 0
 %include "data/bad_apple_010.data"
 times 12 * 256 - ($-$$) db 0
