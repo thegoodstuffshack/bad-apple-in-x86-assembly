@@ -34,7 +34,7 @@ load_frame:
 	mov dl, [BOOT_DRIVE]	;[si]	; boot_drive
 	xor bx, bx
 	mov es, bx
-	mov bx, 0x7e00;[si+7]	; frame_address
+	mov bx, [FRAME_ADDRESS]	;[si+7]	; frame_address
 	int 0x13
 	jc disk_error
 ret
