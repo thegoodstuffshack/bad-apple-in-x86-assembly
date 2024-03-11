@@ -20,7 +20,7 @@
 ## HOW TO RUN ON BARE-METAL
 
 - requires legacy boot capable computer
-- you will need to edit source with start CHS location of partition which can be found using:
+- you will need to edit the source code with your partitions start CHS, location of partition which can be found using:
 
 ```fdisk -x```
 
