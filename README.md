@@ -19,9 +19,28 @@
 
 ## HOW TO RUN ON BARE-METAL
 
-- see **bare-metal** branch
+### HOW TO RUN ON BARE-METAL
 
-## TO DO
+- requires legacy boot capable computer
+- you will need to edit source with start CHS location of partition which can be found using:
 
+```fdisk -x```
+
+- i tested by creating a partition and using dd to copy the .bin
+- **WARNING: PARTITION DATA WILL BE OVERWRITTEN**
+
+```dd if=os.bin of=/dev/PARTITION```
+
+- add grub boot menu option by editing /boot/grub/grub.cfg
+
+```
+menuentry 'CHOSEN_NAME' {
+  set root=(DRIVE,PARTITION)
+  chainloader +1
+```
+
+- reboot and select new grub entry
+
+### TO DO
 - fine-tune pit for proper framerate
 - add sound
