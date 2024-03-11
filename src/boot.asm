@@ -15,9 +15,8 @@ max_sectors	db 63 	; si+1
 max_heads	db 255	; si+2
 max_cylinders 	db 255 	; si+3
 
-;; EDIT THESE VALUES FOR BOOTING USING BARE-METAL
 sector_count	db 1		; si+4
-head_count		db 0	 	; si+5
+head_count	db 0	 	; si+5
 cylinder_count	db 0		; si+6
 frame_address	dw 0x7e00	; si+7
 
