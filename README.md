@@ -15,7 +15,7 @@
 
 ```qemu-system-x86_64 -device ide-hd,drive=dr,cyls=4,heads=16,secs=63 -drive if=none,id=dr,format=raw,file=os.bin```
 
-- this tends to lag with the current settings
+- qemu tends to lag so the fps won't be exact, however is fine on bare-metal
 
 ## HOW TO RUN ON BARE-METAL
 
@@ -41,5 +41,4 @@ menuentry 'CHOSEN_NAME' {
 - reboot and select new grub entry
 
 ### TO DO
-- fine-tune pit for proper framerate
 - add sound
