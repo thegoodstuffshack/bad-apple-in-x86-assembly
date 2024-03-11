@@ -16,9 +16,9 @@ max_heads	db 255	; si+2
 max_cylinders 	db 255 	; si+3
 
 ; edit these values if running on bare-metal
-sector_count	db 1		; si+4
+cylinder_count	db 0		; si+4
 head_count	db 0	 	; si+5
-cylinder_count	db 0		; si+6
+sector_count	db 1		; si+6
 
 frame_address	dw 0x7e00	; si+7
 
