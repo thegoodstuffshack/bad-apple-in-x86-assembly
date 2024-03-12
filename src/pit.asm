@@ -10,10 +10,6 @@ PIT_init:
 	mov al, ah
 	out 0x40, al
 	sti
-	
-	mov ah, 0x0e
-	mov al, 'p'
-	int 0x10
 ret
 
 PIT_timer:			; works on its own in normal_mode
