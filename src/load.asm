@@ -33,7 +33,7 @@ load_frame:
 	mov dl, [si]	; boot_drive
 	xor bx, bx
 	mov es, bx
-	mov bx, [si+7]	; frame_address
+	mov bx, 0x7e00	; frame_address
 	int 0x13
 	jc disk_error ; for debugging
 ret
