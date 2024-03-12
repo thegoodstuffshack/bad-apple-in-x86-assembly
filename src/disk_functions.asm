@@ -24,11 +24,7 @@ check_disk_parameters:
 	mov cl, al
 	mov [si+3], cl
 	
-	mov ah, 0x0e
-	mov al, 'd'
-	int 0x10
-	
-	.end:
+.end:
 ret
 
 ; print_disk_parameters:
