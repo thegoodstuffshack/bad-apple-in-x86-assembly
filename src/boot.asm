@@ -35,9 +35,6 @@ start:
 	mov sp, 0x7c00
 	
 	mov byte [BOOT_DRIVE], dl
-	mov al, dl
-	mov ah, 0x0e
-	int 0x10
 	
 	call PIT_init
 	call check_disk_parameters
@@ -90,7 +87,6 @@ disk_reset:
 	mov dl, [BOOT_DRIVE]
 	int 0x13
 ret
-
 
 %include "src/disk_functions.asm"
 %include "src/pit.asm"
