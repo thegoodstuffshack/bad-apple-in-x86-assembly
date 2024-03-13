@@ -1,6 +1,6 @@
 # Bootloader that plays bad apple
 
-- get frames from <https://archive.org/details/bad_apple_is.7z> and format using python code (run main.py)
+- get frames from <https://archive.org/details/bad_apple_is.7z> and format using python code (run [main.py](py_code/main.py))
 - preformatted frames are included
 
 ## HOW TO RUN IN VM
