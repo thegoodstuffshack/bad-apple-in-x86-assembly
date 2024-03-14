@@ -40,6 +40,7 @@ qemu-system-x86_64 -device ide-hd,drive=dr,cyls=4,heads=16,secs=63 -drive if=non
 menuentry 'CHOSEN_NAME' {
   set root=(DRIVE,PARTITION)
   chainloader +1
+}
 ```
 
 - reboot and select new grub entry
