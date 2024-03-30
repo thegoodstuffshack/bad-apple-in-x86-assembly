@@ -1,3 +1,4 @@
+; Copyright (c) 2015 Michael C. Martin
 ;https://github.com/michaelcmartin/bumbershoot/blob/master/dos/sound/pcs_pwm.asm
 ;;; PC Speaker Pulse Width Modulation technique
 ;;;
