@@ -54,3 +54,5 @@ menuentry 'CHOSEN_NAME' {
 
 ## TO DO
 - add sound
+- rewrite python to directly build to binary
+- improve frame speed
