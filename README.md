@@ -1,4 +1,4 @@
-# Bootloader that prints bad apple
+# Plays the audio for bad apple in asm
 
 ##
 - see [audio/no](audio/no)
