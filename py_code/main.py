@@ -43,9 +43,6 @@ def generate_asm_include(dest):
 		b += 1
 
 
-src_dir = '../src/'
-generate_asm_include(src_dir + 'frames.asm')
-
 # Main Loop
 while (a <= count):
 	if a > 99:
@@ -71,4 +68,4 @@ src_dir = '../src/'
 generate_asm_include(src_dir + 'frames.asm')
 
 main_end = time.time()
-print('\nTotal Time: ' + main_end-main_start)
+print('\nTotal Time: ' + str(main_end-main_start))
