@@ -1,7 +1,6 @@
 # Bootloader that plays bad apple
 
-- get frames from <https://archive.org/details/bad_apple_is.7z> and format using python code (run [main.py](py_code/main.py))
-- preformatted frames are included
+- frames taken from <https://archive.org/details/bad_apple_is.7z> and formatted using python (run [main.py](py_code/main.py))
 
 ## HOW TO RUN IN VM
 
@@ -53,6 +52,5 @@ menuentry 'CHOSEN_NAME' {
 - reboot and select the usb in bios boot menu (some bioses not compatible with certain usb's) or chainload usb through grub command line
 
 ## TO DO
+
 - add sound
-- rewrite python to directly build to binary
-- improve frame speed
