@@ -1,46 +1,38 @@
 import time
 import numpy
+import array
 import cv2
 
 count = 6562 # number of frames
+hRes = 80
+vRes = 24
 a = 1
+binaryFileData = array.array('B')
+zeroArray = [0] * 14
 main_start = time.time()
 
-def binarize_image(img, dest, a):
-	ret, bw_img = cv2.threshold(img, 0,255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-	binary = numpy.where(bw_img == 255, 1, bw_img) 
+def binarize_image(img):
+	binary = numpy.where(img == 255, 1, img) 
 
 	binary = binary.tobytes()
+	i = 0
+	while i < hRes * vRes:
+		lowerbyte = binary[i] * 128 + binary[i+1] * 64 + binary[i+2] * 32 + binary[i+3] * 16 + binary[i+4] * 8 + binary[i+5] * 4 + binary[i+6] * 2 + binary[i+7]
+		i += 8
+		upperbyte = binary[i] * 128 + binary[i+1] * 64 + binary[i+2] * 32 + binary[i+3] * 16 + binary[i+4] * 8 + binary[i+5] * 4 + binary[i+6] * 2 + binary[i+7]
+		binaryFileData.append(upperbyte)
+		binaryFileData.append(lowerbyte)
+		i += 8
 
-	with open(dest, 'w') as dest:
-		for r in range(0, len(binary) - 1):
-			if r == 0:
-				dest.write('dw ' + '\\' + '\n' )
-				dest.write('0b')
-			if r % 16 == 0 and r != 0:
-				dest.write(', 0b')
-			dest.write(str(binary[r]))
-		dest.write(str(binary[-1]))
-		dest.write('\ndw 0b' + bin(a)[2:].zfill(16))
-  
-def generate_asm_include(dest):
-	a = 1
-	b = 3
-	outfile = open(dest, 'w')
-
-	while (a <= count):
-		if a > 99:
-			include = '\n%include "data/bad_apple_' + str(a) + '.data"\n'	
-		elif a > 9:
-			include = '\n%include "data/bad_apple_0' + str(a) + '.data"\n'
-		else:
-			include = '\n%include "data/bad_apple_00' + str(a) + '.data"\n'
-
-		buffer = 'times ' +str(b) + ' * 256 - ($-$$) db 0'
-		addition = include + buffer
-		outfile.write(str(addition))
-		a += 1
-		b += 1
+	b = array.array('B')
+	c = a
+	while c > 255: # c/16 > 15
+		b.append(c % 256)
+		c /= 256
+	b.append(int(c % 256))
+	if a < 256:
+		b.append(0)
+	binaryFileData.extend(b)
 
 
 # Main Loop
@@ -51,21 +43,20 @@ while (a <= count):
 		img = 'bad_apple_0' + str(a) + '.png'
 	else:
 		img = 'bad_apple_00' + str(a) + '.png'
-    
-	image = cv2.imread('../image_sequence/' + img, 2)
-	resized = cv2.resize(image, (80, 24))
 
-	# frame = cv2.imread('../resized/'+ img, 2)
+	image = cv2.imread('../image_sequence/' + img, 2)
+	resized = cv2.resize(image, (hRes, vRes))
 	ret, bw_frame = cv2.threshold(resized, 130, 255, cv2.THRESH_BINARY)
-	bw = cv2.threshold(resized, 130, 255, cv2.THRESH_BINARY)
-	binarize_image(bw_frame, '../data/' + img.removesuffix('.png') + '.data', a)
+	binarize_image(bw_frame)
+	binaryFileData.extend(zeroArray)
 
 	print('\rformatted frame: ' + str(a) + ' / ' + str(count), end='')
 
 	a += 1
 
-src_dir = '../src/'
-generate_asm_include(src_dir + 'frames.asm')
+binaryFileData = binaryFileData.tobytes()
+with open('../frames.data', 'wb') as file:
+	file.write(binaryFileData)
 
 main_end = time.time()
 print('\nTotal Time: ' + str(main_end-main_start))

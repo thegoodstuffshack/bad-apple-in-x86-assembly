@@ -27,25 +27,6 @@ check_disk_parameters:
 .end:
 ret
 
-; print_disk_parameters:
-	; mov ah, 0x0e
-	
-	; mov al, [max_sectors]
-	; ; mov al, cl
-	; ; add al, 48
-	; int 0x10	; o is 63
-	
-	; mov al, [max_cylinders]
-	; ; mov al, cl
-	; ; add al, 48
-	; int 0x10	; 0 means 1 cylinder
-	
-	; mov al, [max_heads]
-	; ; mov al, cl
-	; ; add al, 48
-	; int 0x10	; ? means 16 heads
-; ret
-
 disk_error:	; status, head, sector
 	mov cl, al
 	mov al, ah
@@ -57,7 +38,4 @@ disk_error:	; status, head, sector
 	
 	mov al, cl
 	int 0x10
-	
-	; mov al, 1
-	; int 0x10
 hlt

@@ -4,19 +4,19 @@ jmp start
 
 ;; CONSTANTS
 TIMER_ADDRESS 		equ	0x046c	; location of PIT timer count
-RELOAD_VALUE 		equ	0x9b84  ; determines tick speed of PIT
-number_of_frames 	equ	6562 /2	; divide frames by 2
+RELOAD_VALUE 		equ	0x9b84  ; determines tick speed of PIT -- 1193182/FPS
+number_of_frames 	equ	6562 /2	; divide frames by 2 as 2 frames played per loop
 FOREGROUND 		equ 	35
 BACKGROUND		equ 	32
 
 ; default values set in case of failed parameter check
-BOOT_DRIVE	db 0 	; si 		; init variable
+BOOT_DRIVE	db 0 	; si
 max_sectors	db 63 	; si+1
 max_heads	db 255	; si+2
 max_cylinders 	db 255 	; si+3
 
 ; edit these values if running on bare-metal
-; e.g. if partition starts at C/H/S 62/40/25 then the respective counts are equal to 62, 45 and 25
+; e.g. if partition starts at C/H/S 62/40/25 then the respective counts are equal to 62, 40 and 25
 cylinder_count	db 0		; si+4
 head_count	db 0	 	; si+5
 sector_count	db 1		; si+6
@@ -38,7 +38,6 @@ start:
 	
 	call PIT_init
 	call check_disk_parameters
-	;call print_disk_parameters
 	call PIT_timer
 
 	; sets cursor to invisible to remove flickering
@@ -97,4 +96,4 @@ jmp $ ; catch in case code decides to run away
 times 510 -($-$$) db 0
 dw 0xAA55
 
-%include "src/frames.asm"	; append frame data to .bin and compile
+incbin "frames.data"
