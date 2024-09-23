@@ -6,9 +6,10 @@ import cv2
 count = 6562 # number of frames
 hRes = 80
 vRes = 24
+frameAlignment = 256
 a = 1
 binaryFileData = array.array('B')
-zeroArray = [0] * 14
+zeroArray = [0] * int(frameAlignment - vRes*hRes/8 - 2)
 main_start = time.time()
 
 def binarize_image(img):
@@ -44,19 +45,17 @@ while (a <= count):
 	else:
 		img = 'bad_apple_00' + str(a) + '.png'
 
-	image = cv2.imread('../image_sequence/' + img, 2)
+	image = cv2.imread('../image_sequence/' + img, cv2.IMREAD_GRAYSCALE)
 	resized = cv2.resize(image, (hRes, vRes))
 	ret, bw_frame = cv2.threshold(resized, 130, 255, cv2.THRESH_BINARY)
 	binarize_image(bw_frame)
 	binaryFileData.extend(zeroArray)
 
 	print('\rformatted frame: ' + str(a) + ' / ' + str(count), end='')
-
 	a += 1
 
 binaryFileData = binaryFileData.tobytes()
 with open('../frames.data', 'wb') as file:
 	file.write(binaryFileData)
 
-main_end = time.time()
-print('\nTotal Time: ' + str(main_end-main_start))
+print('\nTotal Time: ' + str(time.time()-main_start))
