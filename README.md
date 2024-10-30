@@ -10,8 +10,6 @@
 nasm -f bin src/boot.asm -o os.bin
 ```
 
-- will take a while to compile as every frame is also compiled
-
 ### Run
 
 ```
